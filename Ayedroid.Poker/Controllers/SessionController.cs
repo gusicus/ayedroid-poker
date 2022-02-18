@@ -1,3 +1,4 @@
+using Ayedroid.Poker.Interfaces;
 using Ayedroid.Poker.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,35 +9,30 @@ namespace Ayedroid.Poker.Controllers
     public class SessionController : ControllerBase
     {
         private readonly ILogger<SessionController> _logger;
+        private readonly ISessionContainer _sessionContainer;
 
-        private readonly static List<Session> _sessions = new();
-
-        public SessionController(ILogger<SessionController> logger)
+        public SessionController(ILogger<SessionController> logger, ISessionContainer sessionContainer)
         {
             _logger = logger;
+            _sessionContainer = sessionContainer;
         }
 
         [Route("")]
         [HttpPost]
-        public async Task<IActionResult> StartNewSession(string sessionName)
+        public IActionResult StartNewSession([FromBody] StartSessionDto startSessionDto)
         {
-            Guid guid = Guid.NewGuid();
+            Guid guid = _sessionContainer.AddSession(startSessionDto.SessionName);
 
-            _sessions.Add(new Session()
-            {
-                Id = guid,
-                Name = sessionName,
-                Participants = new List<Participant>()
-            });
+            _logger.LogInformation("New session started: {SessionName} ({guid})", startSessionDto.SessionName, guid);
 
             return Ok(guid.ToString());
         }
 
-        [Route("{id}")]
+        [Route("{sessionId}")]
         [HttpPost]
-        public async Task<IActionResult> GetSession(string id)
+        public IActionResult GetSession(string sessionId)
         {
-            Session session = FindSession(id);
+            Session? session = _sessionContainer.GetSession(sessionId);
 
             if (session == null)
             {
@@ -46,25 +42,40 @@ namespace Ayedroid.Poker.Controllers
             return Ok(session);
         }
 
-        [Route("{id}/join")]
+        [Route("{sessionId}/join")]
         [HttpPost]
-        public async Task<IActionResult> JoinSession(string id, [FromBody] JoinSessionDto joinSessionDto)
+        public IActionResult JoinSession(string sessionId, [FromBody] JoinSessionDto joinSessionDto)
         {
-            Session session = FindSession(id);
+            Session? session = _sessionContainer.GetSession(sessionId);
 
             if (session == null)
             {
                 return NotFound();
             }
 
-            session.Participants?.Add(new Participant() { Name = joinSessionDto.UserName });
+            _logger.LogInformation("New user {UserName} joined {Name} ({Id})", joinSessionDto.UserName, session.Name, session.Id);
+
+            session.Participants.Add(new Participant() { Name = joinSessionDto.UserName });
 
             return Ok();
         }
 
-        private static Session FindSession(string id)
+        [Route("{sessionId}")]
+        [HttpDelete]
+        public IActionResult EndSession(string sessionId)
         {
-            return _sessions.FirstOrDefault(s => s.Id.ToString() == id);
+            Session? session = _sessionContainer.GetSession(sessionId);
+
+            if (session == null)
+            {
+                return NotFound();
+            }
+
+            _logger.LogInformation("Session ended: {SessionName} ({Id})", session.Name, session.Id);
+
+            _sessionContainer.EndSession(sessionId);
+
+            return Ok();
         }
     }
 }

@@ -2,8 +2,13 @@
 {
     public class Session
     {
-        public Guid Id { get; set; }
-        public string? Name { get; set; }
-        public List<Participant>? Participants { get; set; }
+        public Session(string sessionName)
+        {
+            Name = sessionName;
+        }
+
+        public Guid Id { get; } = Guid.NewGuid();
+        public string Name { get; private set; }
+        public List<Participant> Participants { get; } = new List<Participant>();
     }
 }
