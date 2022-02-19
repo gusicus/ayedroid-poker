@@ -1,14 +1,11 @@
 ﻿namespace Ayedroid.Poker.Models
 {
-    public class Session
+    public class Session : UniqueEntity
     {
-        public Session(string sessionName)
+        public Session(string sessionName) : base(sessionName)
         {
-            Name = sessionName;
         }
 
-        public Guid Id { get; } = Guid.NewGuid();
-        public string Name { get; private set; }
         public List<Participant> Participants { get; } = new List<Participant>();
     }
 }

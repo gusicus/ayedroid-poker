@@ -1,8 +1,10 @@
 ﻿namespace Ayedroid.Poker.Models
 {
-    public class Participant
+    public class Participant : UniqueEntity
     {
-        public string? Name { get; set; }
+        public Participant(string userName) : base(userName)
+        {
 
+        }
     }
 }
