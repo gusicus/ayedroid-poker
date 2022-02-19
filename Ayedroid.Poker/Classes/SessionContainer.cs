@@ -9,10 +9,12 @@ namespace Ayedroid.Poker.Classes
     /// </summary>
     public class SessionContainer : ISessionContainer
     {
+        private readonly ILogger<SessionContainer> _logger;
         private readonly List<Session> _sessions;
 
-        public SessionContainer()
+        public SessionContainer(ILogger<SessionContainer> logger)
         {
+            _logger = logger;
             _sessions = new();
         }
 
@@ -29,6 +31,8 @@ namespace Ayedroid.Poker.Classes
 
             _sessions.Add(session);
 
+            _logger.LogInformation("New session started: {SessionName} ({Id})", session.Name, session.Id);
+
             return session.Id;
         }
 
@@ -40,12 +44,11 @@ namespace Ayedroid.Poker.Classes
         {
             ArgumentNullException.ThrowIfNull(sessionId);
 
-            Session? session = GetSession(sessionId);
+            Session session = GetSession(sessionId);
 
-            if (session == null)
-                throw new SessionNotFoundException();
+            _logger.LogInformation("Session ended: {Name} ({Id})", session.Name, session.Id);
 
-            _sessions.RemoveAll(s => s.Id.ToString() == sessionId);
+            _sessions.RemoveAll(s => s.Id.ToString() == session.Id.ToString());
         }
 
         /// <summary>
@@ -53,11 +56,16 @@ namespace Ayedroid.Poker.Classes
         /// </summary>
         /// <param name="sessionId">Guid of the session to retrieve</param>
         /// <returns>Session if it exists, null if not</returns>
-        public Session? GetSession(string sessionId)
+        public Session GetSession(string sessionId)
         {
             ArgumentNullException.ThrowIfNull(sessionId);
 
-            return _sessions.FirstOrDefault(s => s.Id.ToString() == sessionId);
+            Session? session = _sessions.FirstOrDefault(s => s.Id.ToString() == sessionId);
+
+            if (session == null)
+                throw new SessionNotFoundException();
+
+            return session;
         }
     }
 }

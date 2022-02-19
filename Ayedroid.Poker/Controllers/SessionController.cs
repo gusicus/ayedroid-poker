@@ -28,8 +28,6 @@ namespace Ayedroid.Poker.Controllers
         {
             Guid guid = _sessionContainer.AddSession(startSessionDto.SessionName);
 
-            _logger.LogInformation("New session started: {SessionName} ({guid})", startSessionDto.SessionName, guid);
-
             return Ok(guid.ToString());
         }
 
@@ -43,11 +41,6 @@ namespace Ayedroid.Poker.Controllers
         public IActionResult GetSession(string sessionId)
         {
             Session? session = _sessionContainer.GetSession(sessionId);
-
-            if (session == null)
-            {
-                return NotFound();
-            }
 
             return Ok(session);
         }
@@ -64,11 +57,6 @@ namespace Ayedroid.Poker.Controllers
         {
             Session? session = _sessionContainer.GetSession(sessionId);
 
-            if (session == null)
-            {
-                return NotFound();
-            }
-
             _logger.LogInformation("New user {UserName} joined {Name} ({Id})", joinSessionDto.UserName, session.Name, session.Id);
 
             session.Participants.Add(new Participant(joinSessionDto.UserName));
@@ -80,15 +68,6 @@ namespace Ayedroid.Poker.Controllers
         [HttpDelete]
         public IActionResult EndSession(string sessionId)
         {
-            Session? session = _sessionContainer.GetSession(sessionId);
-
-            if (session == null)
-            {
-                return NotFound();
-            }
-
-            _logger.LogInformation("Session ended: {SessionName} ({Id})", session.Name, session.Id);
-
             _sessionContainer.EndSession(sessionId);
 
             return Ok();
