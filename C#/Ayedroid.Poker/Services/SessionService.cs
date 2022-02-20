@@ -10,11 +10,15 @@ namespace Ayedroid.Poker.Services
     public class SessionService : ISessionService
     {
         private readonly ILogger<SessionService> _logger;
+        private readonly INotificationService _notificationService;
+
         private readonly List<Session> _sessions;
 
-        public SessionService(ILogger<SessionService> logger)
+        public SessionService(ILogger<SessionService> logger, INotificationService notificationService)
         {
             _logger = logger;
+            _notificationService = notificationService;
+
             _sessions = new();
         }
 
@@ -49,6 +53,8 @@ namespace Ayedroid.Poker.Services
             _logger.LogInformation("Session ended: {Name} ({Id})", session.Name, session.Id);
 
             _sessions.RemoveAll(s => s.Id.ToString() == session.Id.ToString());
+
+            _notificationService.SessionEnded();
         }
 
         /// <summary>

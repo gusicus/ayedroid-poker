@@ -1,4 +1,5 @@
 using Ayedroid.Poker.Exceptions;
+using Ayedroid.Poker.Interfaces;
 using Ayedroid.Poker.Models;
 using Ayedroid.Poker.Services;
 using Microsoft.Extensions.Logging;
@@ -21,7 +22,8 @@ namespace Ayedroid.Poker.Test
         public void Init()
         {
             var loggerMock = new Mock<ILogger<SessionService>>();
-            _sessionService = new SessionService(loggerMock.Object);
+            var notificationService = new Mock<INotificationService>();
+            _sessionService = new SessionService(loggerMock.Object, notificationService.Object);
         }
 
         [TestMethod]

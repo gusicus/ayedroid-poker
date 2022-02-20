@@ -15,8 +15,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
 
-builder.Services.AddSingleton<ISessionService>(serviceProvider => new SessionService(serviceProvider.GetRequiredService<ILogger<SessionService>>()));
 builder.Services.AddSingleton<INotificationService>(serviceProvider => new NotificationService(serviceProvider.GetRequiredService<ILogger<NotificationService>>(), serviceProvider.GetRequiredService<IHubContext<NotificationHub, INotificationClient>>()));
+builder.Services.AddSingleton<ISessionService>(serviceProvider => new SessionService(serviceProvider.GetRequiredService<ILogger<SessionService>>(), serviceProvider.GetRequiredService<INotificationService>()));
+
 
 var app = builder.Build();
 
