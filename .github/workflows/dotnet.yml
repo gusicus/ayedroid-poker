@@ -33,12 +33,12 @@ jobs:
         name: dotnet-testresults-${{ matrix.dotnet-version }}
         path: TestResults-${{ matrix.dotnet-version }}
       if: ${{ always() }}
-    - name: Publish
-      run: dotnet publish $SLN_PATH -c Release -o output
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v2.3.1
-      with:
-        # Artifact name
-        name: Aydroid.Poker v1.0.$github.run_number
-        # A file, directory or wildcard pattern that describes what to upload
-        path: output
+#    - name: Publish
+#      run: dotnet publish $SLN_PATH -c Release -o output
+#    - name: Upload Artifact
+#      uses: actions/upload-artifact@v2.3.1
+#      with:
+#        # Artifact name
+#        name: Aydroid.Poker v1.0.$github.run_number
+#        # A file, directory or wildcard pattern that describes what to upload
+#        path: output
