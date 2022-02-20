@@ -59,7 +59,7 @@ namespace Ayedroid.Poker.Controllers
 
             _logger.LogInformation("New user {UserName} joined {Name} ({Id})", joinSessionDto.UserName, session.Name, session.Id);
 
-            session.Participants.Add(new Participant(joinSessionDto.UserName));
+            session.Participants.Add(new Participant(joinSessionDto.UserName, Models.Enums.ParticipantType.Voter));
 
             return Ok();
         }
