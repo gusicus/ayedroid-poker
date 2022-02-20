@@ -1,5 +1,8 @@
 name: .NET
 
+env:
+  SLN_PATH: C#/Ayedroid.Poker.sln
+
 on:
   push:
     branches: [ main ]
@@ -20,15 +23,12 @@ jobs:
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
     - name: Restore dependencies
-      run: dotnet restore 
-      working-directory: C#
+      run: dotnet restore $SLN_PATH
     - name: Build
-      run: dotnet build --no-restore
-      working-directory: C#
+      run: dotnet build $SLN_PATH --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
-      working-directory: C#
-    - name: Upload dotnet test results
+      run: dotnet test $SLN_PATH --no-build --verbosity normal --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
+    - name: Upload test results
       uses: actions/upload-artifact@v2
       with:
         name: dotnet-results-${{ matrix.dotnet-version }}
