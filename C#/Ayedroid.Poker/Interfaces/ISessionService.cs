@@ -2,7 +2,7 @@
 
 namespace Ayedroid.Poker.Interfaces
 {
-    public interface ISessionContainer
+    public interface ISessionService
     {
         Guid AddSession(string sessionName);
         Session GetSession(string sessionId);

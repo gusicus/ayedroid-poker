@@ -9,12 +9,12 @@ namespace Ayedroid.Poker.Controllers
     public class SessionController : ControllerBase
     {
         private readonly ILogger<SessionController> _logger;
-        private readonly ISessionContainer _sessionContainer;
+        private readonly ISessionService _sessionService;
 
-        public SessionController(ILogger<SessionController> logger, ISessionContainer sessionContainer)
+        public SessionController(ILogger<SessionController> logger, ISessionService sessionService)
         {
             _logger = logger;
-            _sessionContainer = sessionContainer;
+            _sessionService = sessionService;
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace Ayedroid.Poker.Controllers
         [HttpPost]
         public IActionResult StartNewSession([FromBody] StartSessionDto startSessionDto)
         {
-            Guid guid = _sessionContainer.AddSession(startSessionDto.SessionName);
+            Guid guid = _sessionService.AddSession(startSessionDto.SessionName);
 
             return Ok(guid.ToString());
         }
@@ -40,7 +40,7 @@ namespace Ayedroid.Poker.Controllers
         [HttpPost]
         public IActionResult GetSession(string sessionId)
         {
-            Session? session = _sessionContainer.GetSession(sessionId);
+            Session? session = _sessionService.GetSession(sessionId);
 
             return Ok(session);
         }
@@ -55,7 +55,7 @@ namespace Ayedroid.Poker.Controllers
         [HttpPost]
         public IActionResult JoinSession(string sessionId, [FromBody] JoinSessionDto joinSessionDto)
         {
-            Session? session = _sessionContainer.GetSession(sessionId);
+            Session? session = _sessionService.GetSession(sessionId);
 
             _logger.LogInformation("New user {UserName} joined {Name} ({Id})", joinSessionDto.UserName, session.Name, session.Id);
 
@@ -73,7 +73,7 @@ namespace Ayedroid.Poker.Controllers
         [HttpDelete]
         public IActionResult EndSession(string sessionId)
         {
-            _sessionContainer.EndSession(sessionId);
+            _sessionService.EndSession(sessionId);
 
             return Ok();
         }

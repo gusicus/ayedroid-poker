@@ -1,8 +1,6 @@
-using Ayedroid.Poker.Classes;
 using Ayedroid.Poker.Exceptions;
-using Ayedroid.Poker.Hubs;
 using Ayedroid.Poker.Models;
-using Microsoft.AspNetCore.SignalR;
+using Ayedroid.Poker.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -16,20 +14,20 @@ namespace Ayedroid.Poker.Test
     public class SessionContainterTests
     {
 #pragma warning disable CS8618 // Intialised in Init()
-        private SessionContainer _sessionContainer;
+        private SessionService _sessionService;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
         [TestInitialize]
         public void Init()
         {
-            var loggerMock = new Mock<ILogger<SessionContainer>>();
-            _sessionContainer = new SessionContainer(loggerMock.Object);
+            var loggerMock = new Mock<ILogger<SessionService>>();
+            _sessionService = new SessionService(loggerMock.Object);
         }
 
         [TestMethod]
         public void CanAddSession()
         {
-            Guid newId = _sessionContainer.AddSession("my new session");
+            Guid newId = _sessionService.AddSession("my new session");
             Assert.IsNotNull(newId);
         }
 
@@ -38,11 +36,11 @@ namespace Ayedroid.Poker.Test
         {
             SeedSessions();
 
-            Guid newId = _sessionContainer.AddSession("my new session");
+            Guid newId = _sessionService.AddSession("my new session");
 
             try
             {
-                Session session = _sessionContainer.GetSession(newId.ToString());
+                Session session = _sessionService.GetSession(newId.ToString());
                 Assert.IsNotNull(session);
                 Assert.AreEqual(newId, session.Id);
             }
@@ -59,7 +57,7 @@ namespace Ayedroid.Poker.Test
 
             Assert.ThrowsException<SessionNotFoundException>(() =>
             {
-                _sessionContainer.GetSession("abc");
+                _sessionService.GetSession("abc");
             });
         }
 
@@ -67,23 +65,23 @@ namespace Ayedroid.Poker.Test
         public void CanEndSession()
         {
             // Add session
-            Guid newId = _sessionContainer.AddSession("my new session");
+            Guid newId = _sessionService.AddSession("my new session");
 
             // Check session exists
             try
             {
-                Session session = _sessionContainer.GetSession(newId.ToString());
+                Session session = _sessionService.GetSession(newId.ToString());
             }
             catch (SessionNotFoundException)
             {
                 Assert.Fail("Session should exist");
             }
 
-            _sessionContainer.EndSession(newId.ToString());
+            _sessionService.EndSession(newId.ToString());
 
             Assert.ThrowsException<SessionNotFoundException>(() =>
             {
-                _sessionContainer.GetSession(newId.ToString());
+                _sessionService.GetSession(newId.ToString());
             });
         }
 
@@ -104,7 +102,7 @@ namespace Ayedroid.Poker.Test
             for (int i = 0; i < 50; i++)
             {
                 // Add session
-                ids.Add(_sessionContainer.AddSession($"my new session {i}"));
+                ids.Add(_sessionService.AddSession($"my new session {i}"));
             }
 
             return ids;

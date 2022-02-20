@@ -2,17 +2,17 @@
 using Ayedroid.Poker.Interfaces;
 using Ayedroid.Poker.Models;
 
-namespace Ayedroid.Poker.Classes
+namespace Ayedroid.Poker.Services
 {
     /// <summary>
     /// Handler for all <see cref="Session"/> interaction. A single list is maintained so all controllers can access the same sessions.
     /// </summary>
-    public class SessionContainer : ISessionContainer
+    public class SessionService : ISessionService
     {
-        private readonly ILogger<SessionContainer> _logger;
+        private readonly ILogger<SessionService> _logger;
         private readonly List<Session> _sessions;
 
-        public SessionContainer(ILogger<SessionContainer> logger)
+        public SessionService(ILogger<SessionService> logger)
         {
             _logger = logger;
             _sessions = new();
