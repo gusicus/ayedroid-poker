@@ -1,7 +1,10 @@
 using Ayedroid.Poker.Classes;
 using Ayedroid.Poker.Exceptions;
+using Ayedroid.Poker.Hubs;
 using Ayedroid.Poker.Interfaces;
+using Ayedroid.Poker.Services;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +14,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSignalR();
 
 builder.Services.AddSingleton<ISessionContainer>(serviceProvider => new SessionContainer(serviceProvider.GetRequiredService<ILogger<SessionContainer>>()));
+builder.Services.AddSingleton<INotificationService>(serviceProvider => new NotificationService(serviceProvider.GetRequiredService<ILogger<NotificationService>>(), serviceProvider.GetRequiredService<IHubContext<NotificationHub, INotificationClient>>()));
 
 var app = builder.Build();
 
