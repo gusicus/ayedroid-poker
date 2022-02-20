@@ -18,8 +18,11 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore 
+      working-directory: C#
     - name: Build
       run: dotnet build --no-restore
+      working-directory: C#
     - name: Test
       run: dotnet test --no-build --verbosity normal
+      working-directory: C#
