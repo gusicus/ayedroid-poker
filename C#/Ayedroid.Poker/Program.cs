@@ -1,4 +1,3 @@
-using Ayedroid.Poker.Classes;
 using Ayedroid.Poker.Exceptions;
 using Ayedroid.Poker.Hubs;
 using Ayedroid.Poker.Interfaces;

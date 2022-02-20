@@ -1,13 +1,7 @@
-using Ayedroid.Poker.Classes;
-using Ayedroid.Poker.Exceptions;
-using Ayedroid.Poker.Models;
+using Ayedroid.Poker.Helpers;
 using Ayedroid.Poker.Models.Enums;
-using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Ayedroid.Poker.Test
 {
