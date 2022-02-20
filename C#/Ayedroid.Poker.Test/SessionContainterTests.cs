@@ -1,6 +1,8 @@
 using Ayedroid.Poker.Classes;
 using Ayedroid.Poker.Exceptions;
+using Ayedroid.Poker.Hubs;
 using Ayedroid.Poker.Models;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
