@@ -63,7 +63,12 @@ namespace Ayedroid.Poker.Controllers
 
             return Ok();
         }
-
+        
+        /// <summary>
+        /// End <paramref name="sessionId"/>. Once this is done all users will be kicked out and the session will be gone forever.
+        /// </summary>
+        /// <param name="sessionId">Id of the session to end</param>
+        /// <returns></returns>
         [Route("{sessionId}")]
         [HttpDelete]
         public IActionResult EndSession(string sessionId)
