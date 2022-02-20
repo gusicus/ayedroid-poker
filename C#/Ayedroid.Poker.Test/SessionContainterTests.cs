@@ -51,6 +51,17 @@ namespace Ayedroid.Poker.Test
         }
 
         [TestMethod]
+        public void NonExistantSessionShouldThrow()
+        {
+            SeedSessions();
+
+            Assert.ThrowsException<SessionNotFoundException>(() =>
+            {
+                _sessionContainer.GetSession("abc");
+            });
+        }
+
+        [TestMethod]
         public void CanEndSession()
         {
             // Add session
