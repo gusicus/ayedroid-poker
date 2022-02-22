@@ -1,4 +1,4 @@
-﻿namespace Ayedroid.Poker.Models
+﻿namespace Ayedroid.Poker.App.Models
 {
     public class Session : UniqueEntity
     {

@@ -1,7 +1,7 @@
-﻿using Ayedroid.Poker.Interfaces;
+﻿using Ayedroid.Poker.App.Interfaces;
 using Microsoft.AspNetCore.SignalR;
 
-namespace Ayedroid.Poker.Hubs
+namespace Ayedroid.Poker.App.Hubs
 {
     public class NotificationHub : Hub<INotificationClient>
     {

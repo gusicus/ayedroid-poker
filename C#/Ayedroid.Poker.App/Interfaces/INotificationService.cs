@@ -1,4 +1,4 @@
-﻿namespace Ayedroid.Poker.Interfaces
+﻿namespace Ayedroid.Poker.App.Interfaces
 {
     public interface INotificationService : INotificationClient
     {

@@ -1,6 +1,6 @@
-﻿using Ayedroid.Poker.Models;
+﻿using Ayedroid.Poker.App.Models;
 
-namespace Ayedroid.Poker.Interfaces
+namespace Ayedroid.Poker.App.Interfaces
 {
     public interface ISessionService
     {

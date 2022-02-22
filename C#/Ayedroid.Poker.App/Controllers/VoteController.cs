@@ -1,7 +1,6 @@
-using Ayedroid.Poker.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Ayedroid.Poker.Controllers
+namespace Ayedroid.Poker.App.App.Controllers
 {
     [ApiController]
     [Route("[controller]")]

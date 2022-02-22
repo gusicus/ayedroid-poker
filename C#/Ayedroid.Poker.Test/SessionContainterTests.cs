@@ -1,7 +1,7 @@
-using Ayedroid.Poker.Exceptions;
-using Ayedroid.Poker.Interfaces;
-using Ayedroid.Poker.Models;
-using Ayedroid.Poker.Services;
+using Ayedroid.Poker.App.Exceptions;
+using Ayedroid.Poker.App.Interfaces;
+using Ayedroid.Poker.App.Models;
+using Ayedroid.Poker.App.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Ayedroid.Poker.Test
+namespace Ayedroid.Poker.App.Test
 {
     [TestClass]
     public class SessionContainterTests

@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "Ayedroid.Poker": {
+    "Ayedroid.Poker.App": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

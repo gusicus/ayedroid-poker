@@ -1,6 +1,6 @@
-﻿using Ayedroid.Poker.Models.Enums;
+﻿using Ayedroid.Poker.App.Models.Enums;
 
-namespace Ayedroid.Poker.Models
+namespace Ayedroid.Poker.App.Models
 {
     public class Participant : UniqueEntity
     {

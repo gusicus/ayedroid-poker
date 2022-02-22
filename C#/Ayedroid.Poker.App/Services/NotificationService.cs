@@ -1,8 +1,8 @@
-﻿using Ayedroid.Poker.Hubs;
-using Ayedroid.Poker.Interfaces;
+﻿using Ayedroid.Poker.App.Hubs;
+using Ayedroid.Poker.App.Interfaces;
 using Microsoft.AspNetCore.SignalR;
 
-namespace Ayedroid.Poker.Services
+namespace Ayedroid.Poker.App.Services
 {
     /// <summary>
     /// 

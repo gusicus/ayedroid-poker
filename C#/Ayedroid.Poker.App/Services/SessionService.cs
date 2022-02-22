@@ -1,8 +1,8 @@
-﻿using Ayedroid.Poker.Exceptions;
-using Ayedroid.Poker.Interfaces;
-using Ayedroid.Poker.Models;
+﻿using Ayedroid.Poker.App.Exceptions;
+using Ayedroid.Poker.App.Interfaces;
+using Ayedroid.Poker.App.Models;
 
-namespace Ayedroid.Poker.Services
+namespace Ayedroid.Poker.App.Services
 {
     /// <summary>
     /// Handler for all <see cref="Session"/> interaction. A single list is maintained so all controllers can access the same sessions.

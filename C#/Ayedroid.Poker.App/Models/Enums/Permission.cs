@@ -1,4 +1,4 @@
-﻿namespace Ayedroid.Poker.Models.Enums
+﻿namespace Ayedroid.Poker.App.Models.Enums
 {
     public enum Permission
     {

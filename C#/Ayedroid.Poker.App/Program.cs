@@ -1,7 +1,7 @@
-using Ayedroid.Poker.Exceptions;
-using Ayedroid.Poker.Hubs;
-using Ayedroid.Poker.Interfaces;
-using Ayedroid.Poker.Services;
+using Ayedroid.Poker.App.Exceptions;
+using Ayedroid.Poker.App.Hubs;
+using Ayedroid.Poker.App.Interfaces;
+using Ayedroid.Poker.App.Services;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.SignalR;
 

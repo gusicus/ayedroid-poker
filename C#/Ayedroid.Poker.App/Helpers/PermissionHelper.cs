@@ -1,6 +1,6 @@
-﻿using Ayedroid.Poker.Models.Enums;
+﻿using Ayedroid.Poker.App.Models.Enums;
 
-namespace Ayedroid.Poker.Helpers
+namespace Ayedroid.Poker.App.Helpers
 {
     public static class PermissionHelper
     {

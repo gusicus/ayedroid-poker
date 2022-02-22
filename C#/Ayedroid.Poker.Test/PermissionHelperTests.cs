@@ -1,9 +1,9 @@
-using Ayedroid.Poker.Helpers;
-using Ayedroid.Poker.Models.Enums;
+using Ayedroid.Poker.App.Helpers;
+using Ayedroid.Poker.App.Models.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace Ayedroid.Poker.Test
+namespace Ayedroid.Poker.App.Test
 {
     [TestClass]
     public class PermissionHelperTests
