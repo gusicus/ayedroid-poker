@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ayedroid.Poker\Ayedroid.Poker.csproj" />
+    <ProjectReference Include="..\Ayedroid.Poker.App\Ayedroid.Poker.App.csproj" />
   </ItemGroup>
 
 </Project>

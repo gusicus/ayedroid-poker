@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ayedroid.Poker", "Ayedroid.Poker\Ayedroid.Poker.csproj", "{A06EABAF-19C8-4250-8C7B-6E3CC6651ED0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ayedroid.Poker", "Ayedroid.Poker.App\Ayedroid.Poker.App.csproj", "{A06EABAF-19C8-4250-8C7B-6E3CC6651ED0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ayedroid.Poker.Test", "Ayedroid.Poker.Test\Ayedroid.Poker.Test.csproj", "{F0A50028-04B3-4ED9-9E85-03AFF8111786}"
 EndProject
