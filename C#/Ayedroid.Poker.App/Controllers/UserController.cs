@@ -1,5 +1,6 @@
 using Ayedroid.Poker.App.Interfaces;
 using Ayedroid.Poker.App.Models;
+using Ayedroid.Poker.App.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ayedroid.Poker.App.Controllers
@@ -10,6 +11,7 @@ namespace Ayedroid.Poker.App.Controllers
     {
         private readonly ILogger<UserController> _logger;
         private readonly IUserService _userService;
+
 
         public UserController(ILogger<UserController> logger, IUserService userService)
         {
@@ -22,8 +24,10 @@ namespace Ayedroid.Poker.App.Controllers
         public IActionResult NewUser([FromBody] NewUserDto newUserDto)
         {
             User user = _userService.AddUser(newUserDto.UserName);
-
-            return Ok(user.Id.ToString());
+            string token = _userService.GenerateToken(user);
+ 
+            return Ok(token);
         }
+
     }
 }
