@@ -1,6 +1,7 @@
 ﻿using Ayedroid.Poker.App.Exceptions;
 using Ayedroid.Poker.App.Interfaces;
 using Ayedroid.Poker.App.Models;
+using Ayedroid.Poker.App.Models.Enums;
 
 namespace Ayedroid.Poker.App.Services
 {
@@ -11,15 +12,15 @@ namespace Ayedroid.Poker.App.Services
     {
         private readonly ILogger<SessionService> _logger;
         private readonly INotificationService _notificationService;
+        private readonly IUserService _userService;
 
-        private readonly List<Session> _sessions;
+        private readonly List<Session> _sessions = new();
 
-        public SessionService(ILogger<SessionService> logger, INotificationService notificationService)
+        public SessionService(ILogger<SessionService> logger, INotificationService notificationService, IUserService userService)
         {
             _logger = logger;
             _notificationService = notificationService;
-
-            _sessions = new();
+            _userService = userService;
         }
 
         /// <summary>
@@ -72,6 +73,16 @@ namespace Ayedroid.Poker.App.Services
                 throw new SessionNotFoundException();
 
             return session;
+        }
+
+        public void JoinSession(string sessionId, string userId, ParticipantType participantType)
+        {
+            ArgumentNullException.ThrowIfNull(sessionId);
+            ArgumentNullException.ThrowIfNull(userId);
+
+            var session = GetSession(sessionId);
+            var user = _userService.GetUser(userId);
+            session.AddParticipant(user, participantType);
         }
     }
 }

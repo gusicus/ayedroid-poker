@@ -14,16 +14,14 @@ namespace Ayedroid.Poker.App.Services
     {
         private readonly ILogger<UserService> _logger;
         private readonly INotificationService _notificationService;
-        private readonly ISessionService _sessionService;
         private readonly TokenAuthOptions _tokenOptions;
 
         private readonly Dictionary<string, User> _users = new();
 
-        public UserService(ILogger<UserService> logger, INotificationService notificationService, ISessionService sessionService, TokenAuthOptions tokenOptions)
+        public UserService(ILogger<UserService> logger, INotificationService notificationService, TokenAuthOptions tokenOptions)
         {
             _logger = logger;
             _notificationService = notificationService;
-            _sessionService = sessionService;
             _tokenOptions = tokenOptions;
         }
 

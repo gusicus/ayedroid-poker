@@ -44,17 +44,17 @@ new NotificationService(
     serviceProvider.GetRequiredService<ILogger<NotificationService>>(),
     serviceProvider.GetRequiredService<IHubContext<NotificationHub, INotificationClient>>()
 ));
-builder.Services.AddSingleton<ISessionService>(serviceProvider =>
-    new SessionService(
-        serviceProvider.GetRequiredService<ILogger<SessionService>>(),
-        serviceProvider.GetRequiredService<INotificationService>()
-));
 builder.Services.AddSingleton<IUserService>(serviceProvider =>
     new UserService(
         serviceProvider.GetRequiredService<ILogger<UserService>>(),
         serviceProvider.GetRequiredService<INotificationService>(),
-        serviceProvider.GetRequiredService<ISessionService>(),
         serviceProvider.GetRequiredService<TokenAuthOptions>()
+));
+builder.Services.AddSingleton<ISessionService>(serviceProvider =>
+    new SessionService(
+        serviceProvider.GetRequiredService<ILogger<SessionService>>(),
+        serviceProvider.GetRequiredService<INotificationService>(),
+        serviceProvider.GetRequiredService<IUserService>()
 ));
 
 var app = builder.Build();

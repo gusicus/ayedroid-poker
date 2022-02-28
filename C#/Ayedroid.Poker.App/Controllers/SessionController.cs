@@ -1,5 +1,7 @@
 using Ayedroid.Poker.App.Interfaces;
 using Ayedroid.Poker.App.Models;
+using Ayedroid.Poker.App.Models.Enums;
+using Ayedroid.Poker.App.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -61,7 +63,7 @@ namespace Ayedroid.Poker.App.Controllers
 
             _logger.LogInformation("New user {UserName} joined {Name} ({Id})", joinSessionDto.UserName, session.Name, session.Id);
 
-            //session.Participants.Add(new Participant(joinSessionDto.UserName, Models.Enums.ParticipantType.Voter));
+            _sessionService.JoinSession(sessionId, User.GetUserId(), ParticipantType.Voter);
 
             return Ok();
         }

@@ -4,9 +4,14 @@ namespace Ayedroid.Poker.App.Utilities
 {
     public static class ClaimsPrincipalExtensions
     {
-        public static string? GetUserId(this ClaimsPrincipal claimsPrincipal)
+        public static string GetUserId(this ClaimsPrincipal claimsPrincipal)
         {
-            return claimsPrincipal.FindFirstValue(ClaimTypes.NameIdentifier);
+            string? id = claimsPrincipal.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (id == null)
+                throw new ArgumentException($"User is missing {ClaimTypes.NameIdentifier}");
+
+            return id;
         }
     }
 }
