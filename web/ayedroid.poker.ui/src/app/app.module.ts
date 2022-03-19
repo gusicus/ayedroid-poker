@@ -14,6 +14,7 @@ import { WebApiService } from './services/web-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import {MatInputModule} from '@angular/material/input';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatListModule,
     HttpClientModule,
     MatInputModule,
-    MatTooltipModule
+    MatTooltipModule,
+    FlexLayoutModule  
   ],
   providers: [WebApiService],
   bootstrap: [AppComponent]
