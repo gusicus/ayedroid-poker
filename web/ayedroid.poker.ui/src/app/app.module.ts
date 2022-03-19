@@ -15,7 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { TranslocoRootModule } from './transloco-root.module';
+import { TranslocoRootModule } from '../transloco/transloco-root.module';
 
 @NgModule({
   declarations: [AppComponent],
