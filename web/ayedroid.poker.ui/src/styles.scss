@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
+$default-padding: 7;
+$default-margin: 7;
+
 html,
 body {
   height: 100%;
@@ -25,8 +28,28 @@ body {
   }
 }
 
+.padding-vertical {
+  padding-top: #{$default-padding}px;
+  padding-bottom: #{$default-padding}px;
+}
+
+.padding-horizontal {
+  padding-left: #{$default-padding}px;
+  padding-right: #{$default-padding}px;
+}
+
+.margin-vertical {
+  margin-top: #{$default-margin}px;
+  margin-bottom: #{$default-margin}px;
+}
+
+.margin-horizontal {
+  margin-left: #{$default-margin}px;
+  margin-right: #{$default-margin}px;
+}
+
 .no-bottom-space {
   .mat-form-field-wrapper {
-    margin-bottom: -1.25em !important;
+    margin-bottom: -2em !important;
   }
 }
