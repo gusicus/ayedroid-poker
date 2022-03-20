@@ -19,6 +19,8 @@ import { TranslocoRootModule } from '../transloco/transloco-root.module';
 import { MatCardModule } from '@angular/material/card';
 import { HomeComponent } from './home/home.component';
 import { SessionComponent } from './session/session.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 @NgModule({
   declarations: [AppComponent, HomeComponent, SessionComponent],
   imports: [
@@ -37,6 +39,7 @@ import { SessionComponent } from './session/session.component';
     FlexLayoutModule,
     TranslocoRootModule,
     MatCardModule,
+    MatSnackBarModule,
   ],
   providers: [WebApiService],
   bootstrap: [AppComponent],

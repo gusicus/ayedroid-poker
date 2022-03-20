@@ -15,4 +15,10 @@ export class WebApiService {
       UserName: userName,
     });
   }
+
+  public startSession(sessionName: string): Observable<string> {
+    return this.http.post<string>(`${this.baseUri}/Session`, {
+      SessionName: sessionName,
+    });
+  }
 }

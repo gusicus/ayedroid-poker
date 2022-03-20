@@ -4,6 +4,10 @@
     "START NEW SESSION": "Start new session",
     "JOIN SESSION": "Join session",
     "SESSION ID": "Session ID",
-    "JOIN": "Join"
+    "JOIN": "Join",
+    "RETRY": "Retry"
+  },
+  "ERRORS": {
+    "CREATE SESSION": "Error creating session"
   }
 }
