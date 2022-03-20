@@ -23,7 +23,7 @@ body {
     }
 
     .width-#{$i} {
-      width: percentage($i / 100);
+      width: percentage(calc($i / 100));
     }
   }
 }
