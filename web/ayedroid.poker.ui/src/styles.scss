@@ -8,3 +8,25 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+@for $i from 5 through 100 {
+  @if $i % 5 == 0 {
+    .margin-#{$i} {
+      margin: #{$i}px;
+    }
+
+    .padding-#{$i} {
+      padding: #{$i}px;
+    }
+
+    .width-#{$i} {
+      width: percentage($i / 100);
+    }
+  }
+}
+
+.no-bottom-space {
+  .mat-form-field-wrapper {
+    margin-bottom: -1.25em !important;
+  }
+}

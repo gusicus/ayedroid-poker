@@ -1,0 +1,20 @@
+<ng-container *transloco="let t">
+  <section fxFlex fxLayoutAlign="center">
+    <mat-card fxFlex.gt-sm="50" fxFlex.lt-md="100">
+      <mat-card-title>{{ t("MAIN.JOIN SESSION") }}</mat-card-title>
+      <mat-card-content>
+        <mat-form-field
+          appearance="fill"
+          color="accent"
+          class="width-100 no-bottom-space"
+        >
+          <mat-label>{{ t("MAIN.SESSION ID") }}</mat-label>
+          <input type="text" matInput placeholder="eg. abcdefg" />
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-stroked-button color="accent">{{ t("MAIN.JOIN") }}</button>
+      </mat-card-actions>
+    </mat-card>
+  </section>
+</ng-container>

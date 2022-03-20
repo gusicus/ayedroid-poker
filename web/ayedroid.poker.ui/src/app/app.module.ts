@@ -16,9 +16,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoRootModule } from '../transloco/transloco-root.module';
-
+import { MatCardModule } from '@angular/material/card';
+import { HomeComponent } from './home/home.component';
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -34,6 +35,7 @@ import { TranslocoRootModule } from '../transloco/transloco-root.module';
     MatTooltipModule,
     FlexLayoutModule,
     TranslocoRootModule,
+    MatCardModule,
   ],
   providers: [WebApiService],
   bootstrap: [AppComponent],
