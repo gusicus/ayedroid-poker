@@ -9,11 +9,18 @@
           class="width-100 no-bottom-space"
         >
           <mat-label>{{ t("MAIN.SESSION ID") }}</mat-label>
-          <input type="text" matInput placeholder="eg. abcdefg" />
+          <input type="text" matInput placeholder="eg. abcdefg" #sessionId />
         </mat-form-field>
       </mat-card-content>
       <mat-card-actions align="end">
-        <button mat-stroked-button color="accent">{{ t("MAIN.JOIN") }}</button>
+        <button
+          mat-stroked-button
+          color="accent"
+          [routerLink]="sessionId.value"
+          [disabled]="!sessionId.value"
+        >
+          {{ t("MAIN.JOIN") }}
+        </button>
       </mat-card-actions>
     </mat-card>
   </section>
