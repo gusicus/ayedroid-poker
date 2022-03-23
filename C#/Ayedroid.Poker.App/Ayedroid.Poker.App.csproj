@@ -5,6 +5,10 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+		<PackageId>$(AssemblyName)</PackageId>
+		<Version>0.0.1</Version>
+		<Authors>superghotline</Authors>
+		<Company>Ayedroid</Company>
 	</PropertyGroup>
 
 	<ItemGroup>

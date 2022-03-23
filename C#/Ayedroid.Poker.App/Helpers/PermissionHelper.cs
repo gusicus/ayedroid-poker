@@ -4,7 +4,7 @@ namespace Ayedroid.Poker.App.Helpers
 {
     public static class PermissionHelper
     {
-        private static Dictionary<ParticipantType, Permission[]> _participantPermissions = new()
+        private static readonly Dictionary<ParticipantType, Permission[]> _participantPermissions = new()
         {
             {
                 ParticipantType.Viewer,

@@ -4,7 +4,7 @@ namespace Ayedroid.Poker.App.Models
 {
     public class Session : UniqueEntity
     {
-        private Dictionary<string, Participant> _participants = new();
+        private readonly Dictionary<string, Participant> _participants = new();
 
         public Session(string sessionName, string id) : base(sessionName, id)
         {

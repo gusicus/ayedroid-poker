@@ -12,7 +12,6 @@ namespace Ayedroid.Poker.App.Controllers
         private readonly ILogger<UserController> _logger;
         private readonly IUserService _userService;
 
-
         public UserController(ILogger<UserController> logger, IUserService userService)
         {
             _logger = logger;
@@ -28,6 +27,5 @@ namespace Ayedroid.Poker.App.Controllers
  
             return Ok(token);
         }
-
     }
 }
