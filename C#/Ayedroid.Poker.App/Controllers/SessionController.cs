@@ -31,9 +31,9 @@ namespace Ayedroid.Poker.App.Controllers
         [AllowAnonymous]
         public IActionResult StartNewSession([FromBody] StartSessionDto startSessionDto)
         {
-            Guid guid = _sessionService.AddSession(startSessionDto.SessionName);
+            string guid = _sessionService.AddSession(startSessionDto.SessionName);
 
-            return Ok(guid.ToString());
+            return Ok(guid);
         }
 
         /// <summary>
