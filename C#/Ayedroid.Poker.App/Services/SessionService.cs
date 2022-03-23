@@ -2,7 +2,6 @@
 using Ayedroid.Poker.App.Interfaces;
 using Ayedroid.Poker.App.Models;
 using Ayedroid.Poker.App.Models.Enums;
-using RandomFriendlyNameGenerator;
 
 namespace Ayedroid.Poker.App.Services
 {
