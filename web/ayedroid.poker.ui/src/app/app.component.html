@@ -2,30 +2,6 @@
   <nav class="mat-elevation-z1">
     <mat-toolbar color="primary">
       <a mat-button routerLink="/">{{ t("MAIN.TITLE") }}</a>
-      <span class="toolbar-spacer"></span>
-      <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-        <button
-          mat-flat-button
-          color="accent"
-          [class.spinner]="newSessionLoading"
-          [disabled]="newSessionLoading"
-          (click)="startSession()"
-        >
-          {{ t("MAIN.START NEW SESSION") }}
-        </button>
-      </div>
-      <button
-        mat-mini-fab
-        fxHide="false"
-        fxHide.gt-sm
-        color="accent"
-        [matTooltip]="t('MAIN.START NEW SESSION')"
-        [class.spinner]="newSessionLoading"
-        [disabled]="newSessionLoading"
-        (click)="startSession()"
-      >
-        <mat-icon>start</mat-icon>
-      </button>
     </mat-toolbar>
   </nav>
   <section class="margin-10">

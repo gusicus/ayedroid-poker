@@ -2,8 +2,10 @@
   "MAIN": {
     "TITLE": "Ayedroid Poker",
     "START NEW SESSION": "Start new session",
+    "SESSION NAME": "Session Name",
     "JOIN SESSION": "Join session",
     "SESSION ID": "Session ID",
+    "START": "Start",
     "JOIN": "Join",
     "RETRY": "Retry"
   },
