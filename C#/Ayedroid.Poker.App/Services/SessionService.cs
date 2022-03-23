@@ -2,6 +2,7 @@
 using Ayedroid.Poker.App.Interfaces;
 using Ayedroid.Poker.App.Models;
 using Ayedroid.Poker.App.Models.Enums;
+using RandomFriendlyNameGenerator;
 
 namespace Ayedroid.Poker.App.Services
 {
@@ -14,7 +15,7 @@ namespace Ayedroid.Poker.App.Services
         private readonly INotificationService _notificationService;
         private readonly IUserService _userService;
 
-        private readonly List<Session> _sessions = new();
+        private readonly Dictionary<string, Session> _sessions = new();
 
         public SessionService(ILogger<SessionService> logger, INotificationService notificationService, IUserService userService)
         {
@@ -32,9 +33,10 @@ namespace Ayedroid.Poker.App.Services
         {
             ArgumentNullException.ThrowIfNull(sessionName);
 
-            var session = new Session(sessionName);
+            string id = GetRandomSessionId();
+            var session = new Session(sessionName, id);
 
-            _sessions.Add(session);
+            _sessions.Add(session.Id, session);
 
             _logger.LogInformation("New session started: {SessionName} ({Id})", session.Name, session.Id);
 
@@ -53,7 +55,7 @@ namespace Ayedroid.Poker.App.Services
 
             _logger.LogInformation("Session ended: {Name} ({Id})", session.Name, session.Id);
 
-            _sessions.RemoveAll(s => s.Id == session.Id);
+            _sessions.Remove(session.Id);
 
             _notificationService.SessionEnded();
         }
@@ -67,10 +69,10 @@ namespace Ayedroid.Poker.App.Services
         {
             ArgumentNullException.ThrowIfNull(sessionId);
 
-            Session? session = _sessions.FirstOrDefault(s => s.Id == sessionId);
-
-            if (session == null)
+            if (!_sessions.ContainsKey(sessionId))
                 throw new SessionNotFoundException();
+
+            Session session = _sessions[sessionId];
 
             return session;
         }
@@ -83,6 +85,17 @@ namespace Ayedroid.Poker.App.Services
             var session = GetSession(sessionId);
             var user = _userService.GetUser(userId);
             session.AddParticipant(user, participantType);
+        }
+
+        private string GetRandomSessionId()
+        {
+            string id;
+            do
+            {
+                id = NameGenerator.Identifiers.Get(1, IdentifierTemplate.GitHub, separator: string.Empty).First();
+            } while (_sessions.ContainsKey(id));
+
+            return id;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Ayedroid.Poker.App.Models
     {
         private Dictionary<string, Participant> _participants = new();
 
-        public Session(string sessionName) : base(sessionName)
+        public Session(string sessionName, string id) : base(sessionName, id)
         {
 
         }
