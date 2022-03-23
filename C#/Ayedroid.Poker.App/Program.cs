@@ -6,10 +6,20 @@ using Ayedroid.Poker.App.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+                      builder =>
+                      {
+                          builder.WithOrigins("http://localhost:4200/");
+                      });
+});
 
 TokenAuthOptions tokenAuthOptions = new();
 builder.Services.AddSingleton<TokenAuthOptions>(tokenAuthOptions);
@@ -33,7 +43,12 @@ builder.Services.AddAuthorization(options =>
         .RequireAuthenticatedUser().Build();
 });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(o =>
+{
+    // Without this any Ok(string) will be sent back as text/plain - which angular doesn't like
+    o.OutputFormatters.RemoveType<StringOutputFormatter>();
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -83,6 +98,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors((o) =>
+   o.AllowAnyOrigin()
+  .AllowAnyMethod()
+  .AllowAnyHeader()
+);
 
 app.UseAuthorization();
 

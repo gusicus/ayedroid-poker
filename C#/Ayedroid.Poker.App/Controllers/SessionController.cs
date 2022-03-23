@@ -28,6 +28,7 @@ namespace Ayedroid.Poker.App.Controllers
         /// <returns>Id of the new session, to be used for all further session interaction</returns>
         [Route("")]
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult StartNewSession([FromBody] StartSessionDto startSessionDto)
         {
             Guid guid = _sessionService.AddSession(startSessionDto.SessionName);
@@ -41,7 +42,7 @@ namespace Ayedroid.Poker.App.Controllers
         /// <param name="sessionId">Id of the session to get</param>
         /// <returns><see cref="Session"/> if it exists</returns>
         [Route("{sessionId}")]
-        [HttpPost]
+        [HttpGet]
         public IActionResult GetSession(string sessionId)
         {
             Session? session = _sessionService.GetSession(sessionId);
