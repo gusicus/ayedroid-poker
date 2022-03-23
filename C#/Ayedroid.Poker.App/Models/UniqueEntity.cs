@@ -2,12 +2,17 @@
 {
     public class UniqueEntity
     {
-        public UniqueEntity(string name)
+        public UniqueEntity(string name) : this(name, Guid.NewGuid().ToString())
         {
-            Name = name;
         }
 
-        public Guid Id { get; } = Guid.NewGuid();
+        public UniqueEntity(string name, string id)
+        {
+            Name = name;
+            Id = id;
+        }
+
+        public string Id { get; private set; }
         public string Name { get; private set; }
     }
 }

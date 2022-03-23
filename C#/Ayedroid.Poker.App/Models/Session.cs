@@ -15,12 +15,12 @@ namespace Ayedroid.Poker.App.Models
         {
             ArgumentNullException.ThrowIfNull(user);
 
-            if (_participants.ContainsKey(user.Id.ToString()))
+            if (_participants.ContainsKey(user.Id))
             {
                 throw new ArgumentException($"{user.Id} is already a participant in {Name}");
             }
 
-            _participants[user.Id.ToString()] = new Participant(user, participantType);
+            _participants[user.Id] = new Participant(user, participantType);
         }
     }
 }

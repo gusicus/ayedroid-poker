@@ -23,13 +23,14 @@ namespace Ayedroid.Poker.App.Test
         {
             var loggerMock = new Mock<ILogger<SessionService>>();
             var notificationService = new Mock<INotificationService>();
-            _sessionService = new SessionService(loggerMock.Object, notificationService.Object);
+            var userServiceMock = new Mock<IUserService>();
+            _sessionService = new SessionService(loggerMock.Object, notificationService.Object, userServiceMock.Object);
         }
 
         [TestMethod]
         public void CanAddSession()
         {
-            Guid newId = _sessionService.AddSession("my new session");
+            string newId = _sessionService.AddSession("my new session");
             Assert.IsNotNull(newId);
         }
 
@@ -38,11 +39,11 @@ namespace Ayedroid.Poker.App.Test
         {
             SeedSessions();
 
-            Guid newId = _sessionService.AddSession("my new session");
+            string newId = _sessionService.AddSession("my new session");
 
             try
             {
-                Session session = _sessionService.GetSession(newId.ToString());
+                Session session = _sessionService.GetSession(newId);
                 Assert.IsNotNull(session);
                 Assert.AreEqual(newId, session.Id);
             }
@@ -67,12 +68,12 @@ namespace Ayedroid.Poker.App.Test
         public void CanEndSession()
         {
             // Add session
-            Guid newId = _sessionService.AddSession("my new session");
+            string newId = _sessionService.AddSession("my new session");
 
             // Check session exists
             try
             {
-                Session session = _sessionService.GetSession(newId.ToString());
+                Session session = _sessionService.GetSession(newId);
             }
             catch (SessionNotFoundException)
             {
@@ -90,7 +91,7 @@ namespace Ayedroid.Poker.App.Test
         [TestMethod]
         public void MultipleSessionsShouldHaveUniqueIds()
         {
-            List<Guid> ids = SeedSessions();
+            List<string> ids = SeedSessions();
 
             Assert.IsTrue(ids.Distinct().Count() == ids.Count);
         }
@@ -98,9 +99,9 @@ namespace Ayedroid.Poker.App.Test
         /// <summary>
         /// Add a whole bunch of sessions for to test correct session is found and not just the only one
         /// </summary>
-        private List<Guid> SeedSessions()
+        private List<string> SeedSessions()
         {
-            List<Guid> ids = new();
+            List<string> ids = new();
             for (int i = 0; i < 50; i++)
             {
                 // Add session

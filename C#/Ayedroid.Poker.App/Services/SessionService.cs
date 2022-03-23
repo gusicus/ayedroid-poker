@@ -2,6 +2,7 @@
 using Ayedroid.Poker.App.Interfaces;
 using Ayedroid.Poker.App.Models;
 using Ayedroid.Poker.App.Models.Enums;
+using RandomFriendlyNameGenerator;
 
 namespace Ayedroid.Poker.App.Services
 {
@@ -28,7 +29,7 @@ namespace Ayedroid.Poker.App.Services
         /// </summary>
         /// <param name="sessionName">Display name of the session. Does not have to be unique</param>
         /// <returns>Guid of the new session. Required for any further session interaction</returns>
-        public Guid AddSession(string sessionName)
+        public string AddSession(string sessionName)
         {
             ArgumentNullException.ThrowIfNull(sessionName);
 
@@ -53,7 +54,7 @@ namespace Ayedroid.Poker.App.Services
 
             _logger.LogInformation("Session ended: {Name} ({Id})", session.Name, session.Id);
 
-            _sessions.RemoveAll(s => s.Id.ToString() == session.Id.ToString());
+            _sessions.RemoveAll(s => s.Id == session.Id);
 
             _notificationService.SessionEnded();
         }
@@ -67,7 +68,7 @@ namespace Ayedroid.Poker.App.Services
         {
             ArgumentNullException.ThrowIfNull(sessionId);
 
-            Session? session = _sessions.FirstOrDefault(s => s.Id.ToString() == sessionId);
+            Session? session = _sessions.FirstOrDefault(s => s.Id == sessionId);
 
             if (session == null)
                 throw new SessionNotFoundException();

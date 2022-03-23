@@ -28,7 +28,7 @@ namespace Ayedroid.Poker.App.Services
         public User AddUser(string userName)
         {
             var user = new User(userName);
-            _users[user.Id.ToString()] = user;
+            _users[user.Id] = user;
 
             return user;
         }
@@ -42,7 +42,7 @@ namespace Ayedroid.Poker.App.Services
         {
             var handler = new JwtSecurityTokenHandler();
 
-            ClaimsIdentity identity = new(new GenericIdentity(user.Name, "TokenAuth"), new[] { new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(), ClaimValueTypes.String) });
+            ClaimsIdentity identity = new(new GenericIdentity(user.Name, "TokenAuth"), new[] { new Claim(ClaimTypes.NameIdentifier, user.Id, ClaimValueTypes.String) });
 
             var securityToken = handler.CreateToken(new Microsoft.IdentityModel.Tokens.SecurityTokenDescriptor()
             {
