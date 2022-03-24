@@ -7,6 +7,5 @@ namespace Ayedroid.Poker.App.Interfaces
         User AddUser(string userName);
         User GetUser(string userId);
         bool DoesUserExist(string userId);
-        string GenerateToken(User user);
     }
 }

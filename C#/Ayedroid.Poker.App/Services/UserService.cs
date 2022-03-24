@@ -14,15 +14,13 @@ namespace Ayedroid.Poker.App.Services
     {
         private readonly ILogger<UserService> _logger;
         private readonly INotificationService _notificationService;
-        private readonly TokenAuthOptions _tokenOptions;
 
         private readonly Dictionary<string, User> _users = new();
 
-        public UserService(ILogger<UserService> logger, INotificationService notificationService, TokenAuthOptions tokenOptions)
+        public UserService(ILogger<UserService> logger, INotificationService notificationService)
         {
             _logger = logger;
             _notificationService = notificationService;
-            _tokenOptions = tokenOptions;
         }
 
         public User AddUser(string userName)
@@ -36,24 +34,6 @@ namespace Ayedroid.Poker.App.Services
         public bool DoesUserExist(string userId)
         {
             throw new NotImplementedException();
-        }
-
-        public string GenerateToken(User user)
-        {
-            var handler = new JwtSecurityTokenHandler();
-
-            ClaimsIdentity identity = new(new GenericIdentity(user.Name, "TokenAuth"), new[] { new Claim(ClaimTypes.NameIdentifier, user.Id, ClaimValueTypes.String) });
-
-            var securityToken = handler.CreateToken(new Microsoft.IdentityModel.Tokens.SecurityTokenDescriptor()
-            {
-                Issuer = _tokenOptions.Issuer,
-                Audience = _tokenOptions.Audience,
-                SigningCredentials = _tokenOptions.SigningCredentials,
-                Subject = identity,
-                Expires = DateTime.UtcNow.AddMinutes(3)
-            });
-
-            return handler.WriteToken(securityToken);
         }
 
         public User GetUser(string userId)

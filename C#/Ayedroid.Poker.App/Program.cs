@@ -62,14 +62,20 @@ new NotificationService(
 builder.Services.AddSingleton<IUserService>(serviceProvider =>
     new UserService(
         serviceProvider.GetRequiredService<ILogger<UserService>>(),
-        serviceProvider.GetRequiredService<INotificationService>(),
-        serviceProvider.GetRequiredService<TokenAuthOptions>()
+        serviceProvider.GetRequiredService<INotificationService>()
+
 ));
 builder.Services.AddSingleton<ISessionService>(serviceProvider =>
     new SessionService(
         serviceProvider.GetRequiredService<ILogger<SessionService>>(),
         serviceProvider.GetRequiredService<INotificationService>(),
         serviceProvider.GetRequiredService<IUserService>()
+));
+
+builder.Services.AddSingleton<ITokenService>(serviceProvider =>
+    new TokenService(
+        serviceProvider.GetRequiredService<ILogger<TokenService>>(),
+        serviceProvider.GetRequiredService<TokenAuthOptions>()
 ));
 
 var app = builder.Build();

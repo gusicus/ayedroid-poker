@@ -1,6 +1,6 @@
 ﻿namespace Ayedroid.Poker.App.Models
 {
-    public class NewUserDto
+    public class LoginDto
     {
         public string UserName { get; set; } = string.Empty;
     }
