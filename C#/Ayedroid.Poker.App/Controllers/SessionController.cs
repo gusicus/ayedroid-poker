@@ -9,7 +9,7 @@ namespace Ayedroid.Poker.App.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/v1/[controller]")]
     public class SessionController : ControllerBase
     {
         private readonly ILogger<SessionController> _logger;
