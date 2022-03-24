@@ -1,0 +1,30 @@
+<ng-container *transloco="let t">
+  <mat-card>
+    <mat-card-title>{{ t("MAIN.START NEW SESSION") }}</mat-card-title>
+    <mat-card-content class="padding-vertical">
+      <mat-form-field
+        appearance="fill"
+        color="accent"
+        class="width-100 no-bottom-space"
+      >
+        <mat-label>{{ t("MAIN.SESSION NAME") }}</mat-label>
+        <input
+          type="text"
+          matInput
+          placeholder="eg. Web Dev Pointing Session"
+          #sessionName
+        />
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button
+        mat-stroked-button
+        color="accent"
+        (click)="startSession(sessionName.value)"
+        [disabled]="!sessionName.value"
+      >
+        {{ t("MAIN.START") }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</ng-container>

@@ -18,11 +18,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoRootModule } from '../transloco/transloco-root.module';
 import { MatCardModule } from '@angular/material/card';
 import { HomeComponent } from './home/home.component';
-import { SessionComponent } from './session/session.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { StartSessionComponent } from './session/start-session/start-session.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, SessionComponent],
+  declarations: [AppComponent, HomeComponent, StartSessionComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
