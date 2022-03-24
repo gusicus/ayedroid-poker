@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
 
+const string expiredTokenHeader = "Token-Expired";
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
@@ -21,10 +23,19 @@ builder.Services.AddCors(options =>
                       });
 });
 
-TokenAuthOptions tokenAuthOptions = new();
+TokenAuthOptions tokenAuthOptions = new()
+{
+    Audience = builder.Configuration["Jwt:Audience"],
+    Issuer = builder.Configuration["Jwt:Issuer"]
+
+};
 builder.Services.AddSingleton<TokenAuthOptions>(tokenAuthOptions);
 
-builder.Services.AddAuthentication().AddJwtBearer(options =>
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -34,13 +45,26 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
         ValidateLifetime = true,
         ClockSkew = TimeSpan.FromMinutes(0)
     };
+    options.Events = new JwtBearerEvents
+    {
+        OnAuthenticationFailed = context =>
+         {
+             if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+             {
+                 context.Response.Headers.Add(expiredTokenHeader, "True");
+                 context.Response.StatusCode = 401;
+             }
+             return Task.CompletedTask;
+         }
+    };
 });
 
 builder.Services.AddAuthorization(options =>
 {
     options.DefaultPolicy = new AuthorizationPolicyBuilder()
         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
-        .RequireAuthenticatedUser().Build();
+        .RequireAuthenticatedUser()
+        .Build();
 });
 
 builder.Services.AddControllers(o =>
@@ -109,8 +133,10 @@ app.UseCors((o) =>
    o.AllowAnyOrigin()
   .AllowAnyMethod()
   .AllowAnyHeader()
+  .WithExposedHeaders(expiredTokenHeader)
 );
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

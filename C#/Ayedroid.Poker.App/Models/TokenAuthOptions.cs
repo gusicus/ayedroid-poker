@@ -5,8 +5,8 @@ namespace Ayedroid.Poker.App.Models
 {
     public class TokenAuthOptions
     {
-        public string Audience { get; } = "Participant";
-        public string Issuer { get; } = "Ayedroid.Poker.App";
+        public string Audience { get; init; } = "Participant";
+        public string Issuer { get; init; } = "Ayedroid.Poker.App";
         public SigningCredentials SigningCredentials { get; private set; }
         public RsaSecurityKey Key { get; private set; }
 
