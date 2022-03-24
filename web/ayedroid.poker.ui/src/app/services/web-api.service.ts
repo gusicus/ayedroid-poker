@@ -6,12 +6,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class WebApiService {
-  private baseUri = 'https://localhost:7241';
+  private baseUri = 'https://localhost:7241/api/v1';
 
   constructor(private http: HttpClient) {}
 
-  public newUser(userName: string): Observable<string> {
-    return this.http.post<string>(`${this.baseUri}/User`, {
+  public login(userName: string): Observable<string> {
+    return this.http.post<string>(`${this.baseUri}/Token`, {
       UserName: userName,
     });
   }
