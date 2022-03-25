@@ -1,4 +1,4 @@
-﻿namespace Ayedroid.Poker.App.Models
+﻿namespace Ayedroid.Poker.App.Models.Dto
 {
     public class JoinSessionDto
     {

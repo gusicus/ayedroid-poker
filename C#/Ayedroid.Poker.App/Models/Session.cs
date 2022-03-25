@@ -1,4 +1,5 @@
-﻿using Ayedroid.Poker.App.Models.Enums;
+﻿using Ayedroid.Poker.App.Models;
+using Ayedroid.Poker.App.Models.Enums;
 
 namespace Ayedroid.Poker.App.Models
 {

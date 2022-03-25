@@ -1,5 +1,6 @@
 using Ayedroid.Poker.App.Interfaces;
 using Ayedroid.Poker.App.Models;
+using Ayedroid.Poker.App.Models.Dto;
 using Ayedroid.Poker.App.Models.Enums;
 using Ayedroid.Poker.App.Utilities;
 using Microsoft.AspNetCore.Authorization;
