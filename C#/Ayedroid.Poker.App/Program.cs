@@ -143,6 +143,7 @@ app.UseExceptionHandler(a => a.Run(async context =>
     if (exception is null) { }
     else if (exception is SessionNotFoundException) { statusCode = StatusCodes.Status404NotFound; error = "Session does not exist"; }
     else if (exception is ArgumentNullException) { statusCode = StatusCodes.Status400BadRequest; error = "All fields must have a value"; }
+    else if (exception is InvalidRefreshTokenException) { statusCode = StatusCodes.Status401Unauthorized; error = "Invalid refresh token"; }
 
     context.Response.StatusCode = statusCode;
     await context.Response.WriteAsJsonAsync(new { error });

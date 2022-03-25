@@ -4,6 +4,8 @@ namespace Ayedroid.Poker.App.Interfaces
 {
     public interface ITokenService
     {
-        string GenerateToken(User user);
+        TokenDto GenerateToken(User user);
+
+        TokenDto RefreshToken(string refreshToken);
     }
 }

@@ -1,6 +1,5 @@
 using Ayedroid.Poker.App.Interfaces;
 using Ayedroid.Poker.App.Models;
-using Ayedroid.Poker.App.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,7 +27,17 @@ namespace Ayedroid.Poker.App.Controllers
         public IActionResult Login([FromBody] LoginDto loginDto)
         {
             User user = _userService.AddUser(loginDto.UserName);
-            string token = _tokenService.GenerateToken(user);
+            TokenDto token = _tokenService.GenerateToken(user);
+
+            return Ok(token);
+        }
+
+        [AllowAnonymous]
+        [Route("Refresh")]
+        [HttpPost]
+        public IActionResult RefreshToken([FromBody] RefreshTokenDto refreshTokenDto)
+        {
+            TokenDto token = _tokenService.RefreshToken(refreshTokenDto.RefreshToken);
 
             return Ok(token);
         }
