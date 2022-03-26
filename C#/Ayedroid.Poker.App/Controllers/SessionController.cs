@@ -15,11 +15,13 @@ namespace Ayedroid.Poker.App.Controllers
     {
         private readonly ILogger<SessionController> _logger;
         private readonly ISessionService _sessionService;
+        private readonly IUserService _userService;
 
-        public SessionController(ILogger<SessionController> logger, ISessionService sessionService)
+        public SessionController(ILogger<SessionController> logger, ISessionService sessionService, IUserService userService)
         {
             _logger = logger;
             _sessionService = sessionService;
+            _userService = userService;
         }
 
         /// <summary>
@@ -45,9 +47,21 @@ namespace Ayedroid.Poker.App.Controllers
         [HttpGet]
         public IActionResult GetSession(string sessionId)
         {
-            Session? session = _sessionService.GetSession(sessionId);
+            Session session = _sessionService.GetSession(sessionId);
 
-            return Ok(session);
+            SessionDto sessionDto = new()
+            {
+                Id = session.Id,
+                Name = session.Name,
+                Participants = session.Participants.Select(p => new ParticipantDto()
+                {
+                    UserId = p.UserId,
+                    Type = p.Type,
+                    Name = _userService.GetUser(p.UserId).Name
+                }).ToArray()
+            };
+
+            return Ok(sessionDto);
         }
 
         /// <summary>
@@ -67,7 +81,7 @@ namespace Ayedroid.Poker.App.Controllers
 
             return Ok();
         }
-        
+
         /// <summary>
         /// End <paramref name="sessionId"/>. Once this is done all users will be kicked out and the session will be gone forever.
         /// </summary>

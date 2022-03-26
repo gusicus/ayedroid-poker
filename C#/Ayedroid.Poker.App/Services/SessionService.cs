@@ -90,9 +90,7 @@ namespace Ayedroid.Poker.App.Services
                 return;
             }
 
-            var user = _userService.GetUser(userId);
-
-            session.AddParticipant(user, participantType);
+            session.AddParticipant(userId, participantType);
         }
 
         private string GetRandomSessionId()

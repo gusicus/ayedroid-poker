@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
-import { Session } from 'src/app/models/web-api.model';
+import { SessionDto } from 'src/app/models/web-api.model';
 import { WebApiService } from 'src/app/services/web-api.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { WebApiService } from 'src/app/services/web-api.service';
   styleUrls: ['./view-session.component.scss'],
 })
 export class ViewSessionComponent implements OnInit {
-  public session: Session | null = null;
+  public session: SessionDto | null = null;
 
   public constructor(
     private activatedRoute: ActivatedRoute,

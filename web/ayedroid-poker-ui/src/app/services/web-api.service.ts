@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { concatMap, EMPTY, Observable, of, switchMap, tap } from 'rxjs';
-import { Session, TokenDto } from '../models/web-api.model';
+import { SessionDto, TokenDto } from '../models/web-api.model';
 import { NamePromptComponent } from '../name-prompt/name-prompt.component';
 import { UserStorageService } from './user-storage.service';
 
@@ -61,7 +61,7 @@ export class WebApiService {
       );
   }
 
-  public getSession(sessionId: string): Observable<Session> {
-    return this.http.get<Session>(`${this.baseUri}/Session/${sessionId}`);
+  public getSession(sessionId: string): Observable<SessionDto> {
+    return this.http.get<SessionDto>(`${this.baseUri}/Session/${sessionId}`);
   }
 }

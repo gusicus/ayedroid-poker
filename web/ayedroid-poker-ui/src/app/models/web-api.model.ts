@@ -9,16 +9,15 @@ export interface UniqueEntity {
   name: string;
 }
 
-export interface Session extends UniqueEntity {
-  participants: Participant[];
+export interface SessionDto extends UniqueEntity {
+  participants: ParticipantDto[];
 }
 
-export interface Participant {
-  user: User;
+export interface ParticipantDto {
+  userId: string;
   type: ParticipantType;
+  name: string;
 }
-
-export interface User extends UniqueEntity {}
 
 export enum ParticipantType {
   None = 0,
