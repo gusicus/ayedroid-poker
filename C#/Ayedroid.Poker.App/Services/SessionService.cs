@@ -83,7 +83,15 @@ namespace Ayedroid.Poker.App.Services
             ArgumentNullException.ThrowIfNull(userId);
 
             var session = GetSession(sessionId);
+
+            if (session.HasParticipant(userId))
+            {
+                // User already joined this session so no need to add them again
+                return;
+            }
+
             var user = _userService.GetUser(userId);
+
             session.AddParticipant(user, participantType);
         }
 

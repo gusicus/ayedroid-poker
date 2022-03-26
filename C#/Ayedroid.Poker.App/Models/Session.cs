@@ -1,5 +1,6 @@
 ﻿using Ayedroid.Poker.App.Models;
 using Ayedroid.Poker.App.Models.Enums;
+using System.Collections.ObjectModel;
 
 namespace Ayedroid.Poker.App.Models
 {
@@ -12,6 +13,8 @@ namespace Ayedroid.Poker.App.Models
 
         }
 
+        public ReadOnlyCollection<Participant> Participants => _participants.Values.ToList().AsReadOnly();
+
         public void AddParticipant(User user, ParticipantType participantType)
         {
             ArgumentNullException.ThrowIfNull(user);
@@ -22,6 +25,11 @@ namespace Ayedroid.Poker.App.Models
             }
 
             _participants[user.Id] = new Participant(user, participantType);
+        }
+
+        public bool HasParticipant(string userId)
+        {
+            return _participants.ContainsKey(userId);
         }
     }
 }
