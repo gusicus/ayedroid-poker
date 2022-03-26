@@ -11,7 +11,8 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
-const string expiredTokenHeader = "Token-Expired";
+const string invalidTokenHeader = "invalid-token";
+const string expiredTokenHeader = "token-expired";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,11 +51,20 @@ builder.Services.AddAuthentication(x =>
     {
         OnAuthenticationFailed = context =>
          {
+             // Since the key is replaced every time the app starts we need to force a refresh when a token is sent
+             // signed with a previous key
+             if (context.Exception.GetType() == typeof(SecurityTokenSignatureKeyNotFoundException))
+             {
+                 context.Response.Headers.Add(invalidTokenHeader, "True");
+                 context.Response.StatusCode = 401;
+             }
+
              if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
              {
                  context.Response.Headers.Add(expiredTokenHeader, "True");
                  context.Response.StatusCode = 401;
              }
+
              return Task.CompletedTask;
          }
     };
@@ -162,7 +172,7 @@ app.UseCors((o) =>
    o.AllowAnyOrigin()
   .AllowAnyMethod()
   .AllowAnyHeader()
-  .WithExposedHeaders(expiredTokenHeader)
+  .WithExposedHeaders(expiredTokenHeader, invalidTokenHeader)
 );
 
 app.UseAuthentication();

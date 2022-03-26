@@ -13,5 +13,15 @@ namespace Ayedroid.Poker.App.Utilities
 
             return id;
         }
+
+        public static string GetUserName(this ClaimsPrincipal claimsPrincipal)
+        {
+            string? name = claimsPrincipal.FindFirstValue(ClaimTypes.Name);
+
+            if (name == null)
+                throw new ArgumentException($"User is missing {ClaimTypes.Name}");
+
+            return name;
+        }
     }
 }

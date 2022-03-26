@@ -54,15 +54,14 @@ namespace Ayedroid.Poker.App.Controllers
         /// Register a new user in <paramref name="sessionId"/>. Their username does not have to be unique.
         /// </summary>
         /// <param name="sessionId">Id of the session to join</param>
-        /// <param name="joinSessionDto">Details required to join a session</param>
         /// <returns></returns>
-        [Route("{sessionId}/join")]
+        [Route("{sessionId}/Join")]
         [HttpPost]
-        public IActionResult JoinSession(string sessionId, [FromBody] JoinSessionDto joinSessionDto)
+        public IActionResult JoinSession(string sessionId)
         {
             Session? session = _sessionService.GetSession(sessionId);
 
-            _logger.LogInformation("New user {UserName} joined {Name} ({Id})", joinSessionDto.UserName, session.Name, session.Id);
+            _logger.LogInformation("New user {UserName} joined {Name} ({Id})", User.GetUserName(), session.Name, session.Id);
 
             _sessionService.JoinSession(sessionId, User.GetUserId(), ParticipantType.Voter);
 

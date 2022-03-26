@@ -40,6 +40,14 @@ export class WebApiService {
     );
   }
 
+  public joinSession(sessionId: string): Observable<unknown> {
+    return this.userNameCheck().pipe(
+      switchMap(() =>
+        this.http.post(`${this.baseUri}/Session/${sessionId}/Join`, null)
+      )
+    );
+  }
+
   private userNameCheck(): Observable<string> {
     return this.dialog
       .open(NamePromptComponent)

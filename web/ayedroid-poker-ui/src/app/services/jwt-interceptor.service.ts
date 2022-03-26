@@ -32,7 +32,10 @@ export class JwtInterceptorService implements HttpInterceptor {
     return next.handle(this.addAuthToken(request)).pipe(
       catchError((requestError: HttpErrorResponse) => {
         if (requestError && requestError.status === 401) {
-          if (!this.userStorageService.token) {
+          if (
+            !this.userStorageService.token ||
+            requestError.headers.has('invalid-token')
+          ) {
             return this.webApiService
               .login(this.userStorageService.userName)
               .pipe(
@@ -43,7 +46,7 @@ export class JwtInterceptorService implements HttpInterceptor {
               );
           }
 
-          if (requestError.headers.has('Token-Expired')) {
+          if (requestError.headers.has('token-expired')) {
             if (this.refreshTokenInProgress) {
               return this.refreshTokenSubject.pipe(
                 filter((result) => !!result),
@@ -64,12 +67,10 @@ export class JwtInterceptorService implements HttpInterceptor {
                   finalize(() => (this.refreshTokenInProgress = false))
                 );
             }
-          } else {
-            return throwError(() => new Error(requestError.message));
           }
-        } else {
-          return throwError(() => new Error(requestError.message));
         }
+
+        throw requestError;
       })
     );
   }
