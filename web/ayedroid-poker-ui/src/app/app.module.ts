@@ -11,7 +11,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { WebApiService } from './services/web-api.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -20,9 +20,18 @@ import { MatCardModule } from '@angular/material/card';
 import { HomeComponent } from './home/home.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { StartSessionComponent } from './session/start-session/start-session.component';
+import { JwtInterceptorService } from './services/jwt-interceptor.service';
+import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NamePromptComponent } from './name-prompt/name-prompt.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, StartSessionComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    StartSessionComponent,
+    NamePromptComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -40,8 +49,17 @@ import { StartSessionComponent } from './session/start-session/start-session.com
     TranslocoRootModule,
     MatCardModule,
     MatSnackBarModule,
+    FormsModule,
+    MatDialogModule,
   ],
-  providers: [WebApiService],
+  providers: [
+    WebApiService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
