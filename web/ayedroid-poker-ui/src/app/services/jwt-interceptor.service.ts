@@ -6,7 +6,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, filter, finalize, switchMap, take } from 'rxjs/operators';
 import { UserStorageService } from './user-storage.service';
 import { WebApiService } from './web-api.service';
@@ -75,7 +75,7 @@ export class JwtInterceptorService implements HttpInterceptor {
     );
   }
 
-  public addAuthToken(request: HttpRequest<any>) {
+  public addAuthToken(request: HttpRequest<any>): HttpRequest<any> {
     const token = this.userStorageService.token?.token;
     if (!token) return request;
 
