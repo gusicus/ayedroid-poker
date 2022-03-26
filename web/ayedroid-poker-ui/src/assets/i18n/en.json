@@ -10,9 +10,11 @@
     "RETRY": "Retry",
     "USER NAME": "User Name",
     "WHATS YOUR NAME": "What's your name?",
-    "CONTINUE": "Continue"
+    "CONTINUE": "Continue",
+    "{{ENTITY}} DOES NOT EXIST": "{{ENTITY}} does not exist"
   },
   "ERRORS": {
-    "CREATE SESSION": "Error creating session"
+    "CREATE SESSION": "Error creating session",
+    "ERROR JOINING SESSION": "Error joining session"
   }
 }

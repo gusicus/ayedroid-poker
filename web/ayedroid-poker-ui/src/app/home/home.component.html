@@ -10,34 +10,7 @@
       <pkr-start-session></pkr-start-session>
     </section>
     <section fxFlex.gt-sm="50" fxFlex.lt-md="100">
-      <mat-card>
-        <mat-card-title>{{ t("MAIN.JOIN SESSION") }}</mat-card-title>
-        <mat-card-content class="padding-vertical">
-          <mat-form-field
-            appearance="fill"
-            color="accent"
-            class="width-100 no-bottom-space"
-          >
-            <mat-label>{{ t("MAIN.SESSION ID") }}</mat-label>
-            <input
-              type="text"
-              matInput
-              placeholder="eg. OutrageousCreator"
-              #sessionId
-            />
-          </mat-form-field>
-        </mat-card-content>
-        <mat-card-actions align="end">
-          <button
-            mat-stroked-button
-            color="accent"
-            [routerLink]="sessionId.value"
-            [disabled]="!sessionId.value"
-          >
-            {{ t("MAIN.JOIN") }}
-          </button>
-        </mat-card-actions>
-      </mat-card>
+      <pkr-join-session></pkr-join-session>
     </section>
   </section>
 </ng-container>

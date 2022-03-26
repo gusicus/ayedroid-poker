@@ -1,0 +1,30 @@
+<ng-container *transloco="let t">
+  <mat-card>
+    <mat-card-title>{{ t("MAIN.JOIN SESSION") }}</mat-card-title>
+    <mat-card-content class="padding-vertical">
+      <mat-form-field
+        appearance="fill"
+        color="accent"
+        class="width-100 no-bottom-space"
+      >
+        <mat-label>{{ t("MAIN.SESSION ID") }}</mat-label>
+        <input
+          type="text"
+          matInput
+          placeholder="eg. OutrageousCreator"
+          #sessionId
+        />
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button
+        mat-stroked-button
+        color="accent"
+        (click)="joinSession(sessionId.value)"
+        [disabled]="!sessionId.value"
+      >
+        {{ t("MAIN.JOIN") }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</ng-container>

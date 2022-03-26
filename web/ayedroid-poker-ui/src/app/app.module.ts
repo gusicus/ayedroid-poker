@@ -24,6 +24,7 @@ import { JwtInterceptorService } from './services/jwt-interceptor.service';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NamePromptComponent } from './name-prompt/name-prompt.component';
+import { JoinSessionComponent } from './session/join-session/join-session.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { NamePromptComponent } from './name-prompt/name-prompt.component';
     HomeComponent,
     StartSessionComponent,
     NamePromptComponent,
+    JoinSessionComponent,
   ],
   imports: [
     BrowserModule,
