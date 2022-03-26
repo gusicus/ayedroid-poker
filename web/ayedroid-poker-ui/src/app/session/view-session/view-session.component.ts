@@ -8,9 +8,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ViewSessionComponent implements OnInit {
   public sessionId: string = '';
-  constructor(private activatedRoute: ActivatedRoute) {}
 
-  ngOnInit(): void {
+  public constructor(private activatedRoute: ActivatedRoute) {}
+
+  public ngOnInit(): void {
     this.sessionId = this.activatedRoute.snapshot.params['sessionId'];
   }
 }

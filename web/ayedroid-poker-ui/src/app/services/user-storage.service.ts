@@ -8,7 +8,7 @@ export class UserStorageService {
   private KEY_USERNAME = 'username';
   private KEY_TOKEN = 'token';
 
-  constructor() {}
+  public constructor() {}
 
   public set userName(userName: string) {
     localStorage.setItem(this.KEY_USERNAME, userName);

@@ -8,5 +8,6 @@ import { UserStorageService } from '../services/user-storage.service';
 })
 export class NamePromptComponent {
   public username: string = this.userStorageService.userName;
-  constructor(private userStorageService: UserStorageService) {}
+
+  public constructor(private userStorageService: UserStorageService) {}
 }

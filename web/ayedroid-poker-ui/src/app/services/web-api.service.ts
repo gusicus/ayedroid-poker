@@ -12,7 +12,7 @@ import { UserStorageService } from './user-storage.service';
 export class WebApiService {
   private baseUri = 'https://localhost:7241/api/v1';
 
-  constructor(
+  public constructor(
     private http: HttpClient,
     private userStorageService: UserStorageService,
     private dialog: MatDialog

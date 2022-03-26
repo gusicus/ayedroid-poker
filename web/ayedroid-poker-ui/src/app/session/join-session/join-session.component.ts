@@ -11,7 +11,7 @@ import { WebApiService } from 'src/app/services/web-api.service';
   styleUrls: ['./join-session.component.scss'],
 })
 export class JoinSessionComponent {
-  constructor(
+  public constructor(
     private webApiService: WebApiService,
     private snackBar: MatSnackBar,
     private translocoService: TranslocoService,

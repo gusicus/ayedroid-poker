@@ -10,7 +10,7 @@ import { WebApiService } from 'src/app/services/web-api.service';
   styleUrls: ['./start-session.component.scss'],
 })
 export class StartSessionComponent {
-  constructor(
+  public constructor(
     private webApiService: WebApiService,
     private snackBar: MatSnackBar,
     private translocoService: TranslocoService,

@@ -18,12 +18,12 @@ export class JwtInterceptorService implements HttpInterceptor {
   private refreshTokenInProgress = false;
   private refreshTokenSubject = new BehaviorSubject<string | null>(null);
 
-  constructor(
+  public constructor(
     private webApiService: WebApiService,
     private userStorageService: UserStorageService
   ) {}
 
-  intercept(
+  public intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
@@ -75,7 +75,7 @@ export class JwtInterceptorService implements HttpInterceptor {
     );
   }
 
-  addAuthToken(request: HttpRequest<any>) {
+  public addAuthToken(request: HttpRequest<any>) {
     const token = this.userStorageService.token?.token;
     if (!token) return request;
 
