@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
@@ -10,15 +10,13 @@ import { WebApiService } from 'src/app/services/web-api.service';
   templateUrl: './join-session.component.html',
   styleUrls: ['./join-session.component.scss'],
 })
-export class JoinSessionComponent implements OnInit {
+export class JoinSessionComponent {
   constructor(
     private webApiService: WebApiService,
     private snackBar: MatSnackBar,
     private translocoService: TranslocoService,
     private router: Router
   ) {}
-
-  ngOnInit(): void {}
 
   public joinSession(sessionId: string): void {
     this.webApiService.joinSession(sessionId).subscribe({

@@ -9,15 +9,13 @@ import { WebApiService } from 'src/app/services/web-api.service';
   templateUrl: './start-session.component.html',
   styleUrls: ['./start-session.component.scss'],
 })
-export class StartSessionComponent implements OnInit {
+export class StartSessionComponent {
   constructor(
     private webApiService: WebApiService,
     private snackBar: MatSnackBar,
     private translocoService: TranslocoService,
     private router: Router
   ) {}
-
-  ngOnInit(): void {}
 
   public startSession(sessionName: string): void {
     this.webApiService.startSession(sessionName).subscribe({

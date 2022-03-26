@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserStorageService } from '../services/user-storage.service';
 
 @Component({
@@ -6,9 +6,7 @@ import { UserStorageService } from '../services/user-storage.service';
   templateUrl: './name-prompt.component.html',
   styleUrls: ['./name-prompt.component.scss'],
 })
-export class NamePromptComponent implements OnInit {
+export class NamePromptComponent {
   public username: string = this.userStorageService.userName;
   constructor(private userStorageService: UserStorageService) {}
-
-  ngOnInit(): void {}
 }
