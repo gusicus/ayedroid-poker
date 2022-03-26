@@ -7,7 +7,10 @@
     "SESSION ID": "Session ID",
     "START": "Start",
     "JOIN": "Join",
-    "RETRY": "Retry"
+    "RETRY": "Retry",
+    "USER NAME": "User Name",
+    "WHATS YOUR NAME": "What's your name?",
+    "CONTINUE": "Continue"
   },
   "ERRORS": {
     "CREATE SESSION": "Error creating session"
