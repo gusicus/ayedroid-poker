@@ -25,6 +25,7 @@ import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NamePromptComponent } from './name-prompt/name-prompt.component';
 import { JoinSessionComponent } from './session/join-session/join-session.component';
+import { ViewSessionComponent } from './session/view-session/view-session.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { JoinSessionComponent } from './session/join-session/join-session.compon
     StartSessionComponent,
     NamePromptComponent,
     JoinSessionComponent,
+    ViewSessionComponent,
   ],
   imports: [
     BrowserModule,
