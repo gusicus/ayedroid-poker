@@ -32,7 +32,7 @@ namespace Ayedroid.Poker.App.Controllers
         public IActionResult StartNewSession([FromBody] StartSessionDto startSessionDto)
         {
             string sessionId = _sessionService.AddSession(startSessionDto.SessionName);
-
+            _sessionService.JoinSession(sessionId, User.GetUserId(), ParticipantType.Owner);
             return Ok(sessionId);
         }
 
