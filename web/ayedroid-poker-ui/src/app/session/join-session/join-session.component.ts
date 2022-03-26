@@ -20,7 +20,9 @@ export class JoinSessionComponent {
 
   public joinSession(sessionId: string): void {
     this.webApiService.joinSession(sessionId).subscribe({
-      next: (sessionId) => this.router.navigate(['/', sessionId]),
+      next: () => {
+        this.router.navigate(['/', sessionId]);
+      },
       error: (e: HttpErrorResponse) => {
         if (e.status === 404) {
           this.snackBar.open(
