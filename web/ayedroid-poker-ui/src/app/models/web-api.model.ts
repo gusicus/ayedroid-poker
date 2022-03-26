@@ -3,3 +3,27 @@ export interface TokenDto {
   expires: Date;
   refreshToken: string;
 }
+
+export interface UniqueEntity {
+  id: string;
+  name: string;
+}
+
+export interface Session extends UniqueEntity {
+  participants: Participant[];
+}
+
+export interface Participant {
+  user: User;
+  type: ParticipantType;
+}
+
+export interface User extends UniqueEntity {}
+
+export enum ParticipantType {
+  None = 0,
+  Viewer = 1,
+  Voter = 2,
+  Moderator = 3,
+  Owner = 4,
+}
