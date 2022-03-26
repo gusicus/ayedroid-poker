@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
 
 const string invalidTokenHeader = "invalid-token";
 const string expiredTokenHeader = "token-expired";
@@ -82,6 +83,10 @@ builder.Services.AddControllers(o =>
 {
     // Without this any Ok(string) will be sent back as text/plain - which angular doesn't like
     o.OutputFormatters.RemoveType<StringOutputFormatter>();
+})
+.AddJsonOptions(o =>
+{
+    o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

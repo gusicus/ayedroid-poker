@@ -20,9 +20,9 @@ export interface ParticipantDto {
 }
 
 export enum ParticipantType {
-  None = 0,
-  Viewer = 1,
-  Voter = 2,
-  Moderator = 3,
-  Owner = 4,
+  None = 'None',
+  Viewer = 'Viewer',
+  Voter = 'Voter',
+  Moderator = 'Moderator',
+  Owner = 'Owner',
 }

@@ -55,6 +55,7 @@ import { ViewSessionComponent } from './session/view-session/view-session.compon
     MatSnackBarModule,
     FormsModule,
     MatDialogModule,
+    MatListModule,
   ],
   providers: [
     WebApiService,
