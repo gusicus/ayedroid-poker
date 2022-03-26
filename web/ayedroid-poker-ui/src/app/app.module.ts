@@ -26,7 +26,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { NamePromptComponent } from './name-prompt/name-prompt.component';
 import { JoinSessionComponent } from './session/join-session/join-session.component';
 import { ViewSessionComponent } from './session/view-session/view-session.component';
-
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +58,9 @@ import { ViewSessionComponent } from './session/view-session/view-session.compon
     FormsModule,
     MatDialogModule,
     MatListModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatExpansionModule,
   ],
   providers: [
     WebApiService,

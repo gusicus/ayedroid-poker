@@ -1,1 +1,65 @@
-<pre>{{ session | json }}</pre>
+<ng-container *transloco="let t">
+  <section fxFill fxLayoutGap="7">
+    <mat-card fxFlex="25" fxFill>
+      <mat-card-header>
+        <mat-card-title>{{ t("VIEW SESSION.PARTICIPANTS") }}</mat-card-title>
+        <mat-card-subtitle>14 online</mat-card-subtitle>
+        <mat-icon mat-card-avatar>person</mat-icon>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <mat-list dense>
+          <mat-list-item *ngFor="let participant of session?.participants">
+            <mat-icon mat-list-icon>group</mat-icon>
+            <div mat-line>{{ participant.name }}</div>
+            <div mat-line>{{ participant.type }}</div>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>badge</mat-icon>
+                <span>{{ t("VIEW SESSION.CHANGE PERMISSIONS") }}</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>person_remove</mat-icon>
+                <span>{{ t("VIEW SESSION.REMOVE") }}</span>
+              </button>
+            </mat-menu>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+
+    <section fxLayout="column" fxFlex="75" fxLayoutGap="7">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ currentTicket.name }}</mat-card-title>
+          <mat-card-subtitle>{{ currentTicket.description }}</mat-card-subtitle>
+          <mat-icon mat-card-avatar>ballot</mat-icon>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+          <mat-selection-list [multiple]="false">
+            <mat-list-option *ngFor="let size of sizes" [value]="size">
+              {{ size }}
+            </mat-list-option>
+          </mat-selection-list>
+        </mat-card-content>
+      </mat-card>
+      <section fxLayout="column" fxFlex class="vertical-scrollbar">
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let ticket of history">
+            <mat-expansion-panel-header>
+              <mat-panel-title>{{ ticket.name }}</mat-panel-title>
+              <mat-panel-description>{{
+                ticket.description
+              }}</mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>This is the primary content of the panel.</p>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </section>
+    </section>
+  </section>
+</ng-container>

@@ -16,5 +16,10 @@
   "ERRORS": {
     "CREATE SESSION": "Error creating session",
     "ERROR JOINING SESSION": "Error joining session"
+  },
+  "VIEW SESSION": {
+    "PARTICIPANTS": "Participants",
+    "REMOVE": "Remove from session",
+    "CHANGE PERMISSIONS": "Change permissions"
   }
 }

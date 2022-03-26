@@ -13,6 +13,12 @@ import { WebApiService } from 'src/app/services/web-api.service';
 })
 export class ViewSessionComponent implements OnInit {
   public session: SessionDto | null = null;
+  public sizes = ['S', 'M', 'L', 'XL'];
+  public history: { name: string; description: string }[] = [];
+  public currentTicket: { name: string; description: string } = {
+    name: '',
+    description: '',
+  };
 
   public constructor(
     private activatedRoute: ActivatedRoute,
@@ -22,6 +28,15 @@ export class ViewSessionComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
+    for (let i = 0; i < 30; i++) {
+      this.history.push({
+        name: 'Ticket' + i,
+        description: 'Description for ' + i,
+      });
+    }
+
+    this.currentTicket =
+      this.history[Math.floor(Math.random() * this.history.length + 0)];
     this.joinSession(this.activatedRoute.snapshot.params['sessionId']);
   }
 
