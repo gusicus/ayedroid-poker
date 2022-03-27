@@ -30,7 +30,7 @@ namespace Ayedroid.Poker.App.Test
         [TestMethod]
         public void CanAddSession()
         {
-            string newId = _sessionService.AddSession("my new session");
+            string newId = _sessionService.AddSession("my new session", Array.Empty<string>());
             Assert.IsNotNull(newId);
         }
 
@@ -39,7 +39,7 @@ namespace Ayedroid.Poker.App.Test
         {
             SeedSessions();
 
-            string newId = _sessionService.AddSession("my new session");
+            string newId = _sessionService.AddSession("my new session", Array.Empty<string>());
 
             try
             {
@@ -68,7 +68,7 @@ namespace Ayedroid.Poker.App.Test
         public void CanEndSession()
         {
             // Add session
-            string newId = _sessionService.AddSession("my new session");
+            string newId = _sessionService.AddSession("my new session", Array.Empty<string>());
 
             // Check session exists
             try
@@ -105,7 +105,7 @@ namespace Ayedroid.Poker.App.Test
             for (int i = 0; i < 50; i++)
             {
                 // Add session
-                ids.Add(_sessionService.AddSession($"my new session {i}"));
+                ids.Add(_sessionService.AddSession($"my new session {i}", Array.Empty<string>()));
             }
 
             return ids;
