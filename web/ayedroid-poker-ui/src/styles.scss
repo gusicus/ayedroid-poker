@@ -103,3 +103,9 @@ mat-icon.mat-card-avatar {
   height: 48px;
   font-size: 48px;
 }
+
+// Aligns description properly. See https://github.com/angular/components/issues/10024
+.mat-expansion-panel-header-description,
+.mat-expansion-panel-header-title {
+  flex-basis: 0;
+}
