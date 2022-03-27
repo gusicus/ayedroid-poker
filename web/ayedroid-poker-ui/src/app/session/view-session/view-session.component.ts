@@ -71,7 +71,9 @@ export class ViewSessionComponent implements OnInit {
     this.signalRService.newTopic$.subscribe(
       (topicNotification: TopicNotification) => {
         if (this.session) {
-          this.topicHistory = [this.currentTopic, ...this.topicHistory];
+          if (this.currentTopic.id) {
+            this.topicHistory = [this.currentTopic, ...this.topicHistory];
+          }
           this.currentTopic = topicNotification.topic;
         }
       }

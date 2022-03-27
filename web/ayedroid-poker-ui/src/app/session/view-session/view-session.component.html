@@ -34,7 +34,7 @@
     </mat-card>
 
     <section fxLayout="column" fxFlex="75" fxLayoutGap="7">
-      <mat-card>
+      <mat-card *ngIf="currentTopic.id">
         <mat-card-header>
           <mat-card-title>{{ currentTopic.name }}</mat-card-title>
           <mat-card-subtitle>{{
@@ -84,6 +84,13 @@
             {{ t("VIEW SESSION.NEXT TOPIC") }}
           </button>
         </mat-card-actions>
+      </mat-card>
+      <mat-card *ngIf="!currentTopic.id">
+        <mat-card-content>
+          <button mat-flat-button color="accent" (click)="nextTopic()">
+            {{ t("VIEW SESSION.ADD FIRST TOPIC") }}
+          </button>
+        </mat-card-content>
       </mat-card>
       <section fxLayout="column" fxFlex class="vertical-scrollbar">
         <mat-accordion>
