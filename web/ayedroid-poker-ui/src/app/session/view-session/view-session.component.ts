@@ -4,7 +4,9 @@ import { MatSelectionListChange } from '@angular/material/list';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
+import { ParticipantChange } from 'src/app/models/signal-r.models';
 import { SessionDto } from 'src/app/models/web-api.model';
+import { SignalRService } from 'src/app/services/signal-r.service';
 import { UserStorageService } from 'src/app/services/user-storage.service';
 import { WebApiService } from 'src/app/services/web-api.service';
 
@@ -28,7 +30,8 @@ export class ViewSessionComponent implements OnInit {
     private webApiService: WebApiService,
     private snackBar: MatSnackBar,
     private translocoService: TranslocoService,
-    private userStorageService: UserStorageService
+    private userStorageService: UserStorageService,
+    private signalRService: SignalRService
   ) {}
 
   public ngOnInit(): void {
@@ -42,6 +45,17 @@ export class ViewSessionComponent implements OnInit {
     this.currentTicket =
       this.history[Math.floor(Math.random() * this.history.length + 0)];
     this.joinSession(this.activatedRoute.snapshot.params['sessionId']);
+
+    this.signalRService.participantJoined$.subscribe(
+      (newParticipant: ParticipantChange) => {
+        if (this.session) {
+          this.session.participants = [
+            ...this.session.participants,
+            newParticipant.participant,
+          ];
+        }
+      }
+    );
   }
 
   public joinSession(sessionId: string): void {

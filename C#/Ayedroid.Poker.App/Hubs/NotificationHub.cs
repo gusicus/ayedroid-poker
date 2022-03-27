@@ -7,6 +7,11 @@ namespace Ayedroid.Poker.App.Hubs
     {
         private const string UsersGroup = "Users";
 
+        public NotificationHub()
+        {
+
+        }
+
         public override async Task OnConnectedAsync()
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, UsersGroup);
@@ -18,6 +23,5 @@ namespace Ayedroid.Poker.App.Hubs
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, UsersGroup);
             await base.OnDisconnectedAsync(exception);
         }
-
     }
 }

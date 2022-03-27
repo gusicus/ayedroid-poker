@@ -15,16 +15,20 @@ namespace Ayedroid.Poker.App.Models
 
         public ReadOnlyCollection<Participant> Participants => _participants.Values.ToList().AsReadOnly();
 
-        public void AddParticipant(string userId, ParticipantType participantType)
+        public Participant AddParticipant(string userId, ParticipantType participantType)
         {
             if (_participants.ContainsKey(userId))
                 throw new ArgumentException($"{userId} is already a participant in {Name}");
 
-            _participants[userId] = new Participant()
+            Participant participant = new()
             {
                 Type = participantType,
                 UserId = userId
             };
+
+            _participants[userId] = participant;
+
+            return participant;
         }
 
         public Participant GetParticipant(string userId)

@@ -1,5 +1,7 @@
 ﻿using Ayedroid.Poker.App.Hubs;
 using Ayedroid.Poker.App.Interfaces;
+using Ayedroid.Poker.App.Models;
+using Ayedroid.Poker.App.Models.Dto;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Ayedroid.Poker.App.Services
@@ -22,14 +24,14 @@ namespace Ayedroid.Poker.App.Services
             _notificationHub = notificationHub;
         }
 
-        public async Task ParticipantJoined()
+        public async Task ParticipantJoined(string sessionId, ParticipantDto participant)
         {
-            await _notificationHub.Clients.All.ParticipantJoined();
+            await _notificationHub.Clients.All.ParticipantJoined(sessionId, participant);
         }
 
-        public async Task ParticipantLeft()
+        public async Task ParticipantLeft(string sessionId, ParticipantDto participant)
         {
-            await _notificationHub.Clients.All.ParticipantLeft();
+            await _notificationHub.Clients.All.ParticipantLeft(sessionId, participant);
         }
 
         public async Task SessionEnded()

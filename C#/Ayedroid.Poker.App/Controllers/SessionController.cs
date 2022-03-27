@@ -53,12 +53,7 @@ namespace Ayedroid.Poker.App.Controllers
             {
                 Id = session.Id,
                 Name = session.Name,
-                Participants = session.Participants.Select(p => new ParticipantDto()
-                {
-                    UserId = p.UserId,
-                    Type = p.Type,
-                    Name = _userService.GetUser(p.UserId).Name
-                }).ToArray()
+                Participants = session.Participants.Select(p => p.ToDto(_userService.GetUser(p.UserId).Name)).ToArray()
             };
 
             return Ok(sessionDto);

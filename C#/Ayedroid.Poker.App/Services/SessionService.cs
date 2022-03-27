@@ -84,13 +84,10 @@ namespace Ayedroid.Poker.App.Services
 
             var session = GetSession(sessionId);
 
-            if (session.HasParticipant(userId))
-            {
-                // User already joined this session so no need to add them again
-                return;
-            }
 
-            session.AddParticipant(userId, participantType);
+            Participant participant = !session.HasParticipant(userId) ? session.AddParticipant(userId, participantType) : session.GetParticipant(userId);
+
+            _notificationService.ParticipantJoined(sessionId, participant.ToDto(_userService.GetUser(userId).Name));
         }
 
         private string GetRandomSessionId()
