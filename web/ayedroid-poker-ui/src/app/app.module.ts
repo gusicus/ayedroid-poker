@@ -18,7 +18,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoRootModule } from '../transloco/transloco-root.module';
 import { MatCardModule } from '@angular/material/card';
 import { HomeComponent } from './home/home.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {
+  MatSnackBarModule,
+  MAT_SNACK_BAR_DEFAULT_OPTIONS,
+} from '@angular/material/snack-bar';
 import { StartSessionComponent } from './session/start-session/start-session.component';
 import { JwtInterceptorService } from './services/jwt-interceptor.service';
 import { FormsModule } from '@angular/forms';
@@ -29,6 +32,8 @@ import { ViewSessionComponent } from './session/view-session/view-session.compon
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,12 +66,17 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatMenuModule,
     MatDividerModule,
     MatExpansionModule,
+    ClipboardModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptorService,
       multi: true,
+    },
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: { duration: 5000, horizontalPosition: 'end' },
     },
   ],
   bootstrap: [AppComponent],
