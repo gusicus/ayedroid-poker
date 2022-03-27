@@ -11,7 +11,9 @@
     "USER NAME": "User Name",
     "WHATS YOUR NAME": "What's your name?",
     "CONTINUE": "Continue",
-    "{{ENTITY}} DOES NOT EXIST": "{{ENTITY}} does not exist"
+    "{{ENTITY}} DOES NOT EXIST": "{{ENTITY}} does not exist",
+    "COPY URL TOOLTIP": "Copy URL to invite others to the session",
+    "{{ENTITY}} COPIED TO CLIPBOARD": "{{ENTITY}} copied to clipboard"
   },
   "ERRORS": {
     "CREATE SESSION": "Error creating session",

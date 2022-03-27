@@ -1,13 +1,20 @@
 <ng-container *transloco="let t">
   <div fxLayout="column" fxFill>
-    <nav class="mat-elevation-z1">
+    <nav class="mat-elevation-z4">
       <mat-toolbar color="primary">
         <a mat-button routerLink="/">{{ t("MAIN.TITLE") }}</a
         ><span *ngIf="userStorageService.activeSession$ | async as session"
           ><span *ngIf="session?.id"
             >/<a mat-button routerLink="/{{ session?.id }}">{{
               session.name
-            }}</a></span
+            }}</a>
+            <button
+              mat-icon-button
+              (click)="copyUrl()"
+              [matTooltip]="t('MAIN.COPY URL TOOLTIP')"
+            >
+              <mat-icon>content_copy</mat-icon>
+            </button></span
           ></span
         >
       </mat-toolbar>
