@@ -33,6 +33,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { APP_INITIALIZER } from '@angular/core';
+import { AppStartService } from './services/app-start.service';
+import { Observable } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -77,6 +80,14 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
       useValue: { duration: 5000, horizontalPosition: 'end' },
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory:
+        (appStartService: AppStartService) => (): Observable<unknown> =>
+          appStartService.init(),
+      deps: [AppStartService],
+      multi: true,
     },
   ],
   bootstrap: [AppComponent],

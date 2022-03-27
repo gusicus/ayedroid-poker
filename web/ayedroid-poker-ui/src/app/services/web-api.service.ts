@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { concatMap, EMPTY, Observable, of, switchMap, tap } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { SessionDto, TokenDto } from '../models/web-api.model';
 import { NamePromptComponent } from '../name-prompt/name-prompt.component';
 import { UserStorageService } from './user-storage.service';
@@ -10,7 +11,7 @@ import { UserStorageService } from './user-storage.service';
   providedIn: 'root',
 })
 export class WebApiService {
-  private baseUri = 'https://localhost:7241/api/v1';
+  private baseUri = environment.baseApiUri;
 
   public constructor(
     private http: HttpClient,
