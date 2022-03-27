@@ -63,7 +63,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatExpansionModule,
   ],
   providers: [
-    WebApiService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptorService,

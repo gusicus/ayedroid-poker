@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { TokenDto } from '../models/web-api.model';
+import { BehaviorSubject } from 'rxjs';
+import { SessionDto, TokenDto } from '../models/web-api.model';
 
 @Injectable({
   providedIn: 'root',
@@ -26,5 +27,15 @@ export class UserStorageService {
   public get token(): TokenDto {
     const token = localStorage.getItem(this.KEY_TOKEN);
     return token ? JSON.parse(token) : null;
+  }
+
+  public activeSession$ = new BehaviorSubject<SessionDto>({
+    participants: [],
+    name: '',
+    id: '',
+  });
+
+  public set activeSession(session: SessionDto) {
+    this.activeSession$.next(session);
   }
 }

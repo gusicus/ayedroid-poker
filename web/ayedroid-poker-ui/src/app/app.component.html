@@ -2,7 +2,14 @@
   <div fxLayout="column" fxFill>
     <nav class="mat-elevation-z1">
       <mat-toolbar color="primary">
-        <a mat-button routerLink="/">{{ t("MAIN.TITLE") }}</a>
+        <a mat-button routerLink="/">{{ t("MAIN.TITLE") }}</a
+        ><span *ngIf="userStorageService.activeSession$ | async as session"
+          ><span *ngIf="session?.id"
+            >/<a mat-button routerLink="/{{ session?.id }}">{{
+              session.name
+            }}</a></span
+          ></span
+        >
       </mat-toolbar>
     </nav>
     <div fxFlex class="padding-10">

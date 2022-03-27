@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { SessionDto } from 'src/app/models/web-api.model';
+import { UserStorageService } from 'src/app/services/user-storage.service';
 import { WebApiService } from 'src/app/services/web-api.service';
 
 @Component({
@@ -24,7 +25,8 @@ export class ViewSessionComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private webApiService: WebApiService,
     private snackBar: MatSnackBar,
-    private translocoService: TranslocoService
+    private translocoService: TranslocoService,
+    private userStorageService: UserStorageService
   ) {}
 
   public ngOnInit(): void {
@@ -44,6 +46,7 @@ export class ViewSessionComponent implements OnInit {
     this.webApiService.getSession(sessionId).subscribe({
       next: (session) => {
         this.session = session;
+        this.userStorageService.activeSession = session;
       },
       error: (e: HttpErrorResponse) => {
         if (e.status === 404) {
