@@ -8,7 +8,7 @@
           type="text"
           matInput
           name="username"
-          [(ngModel)]="result.topic"
+          [(ngModel)]="result.title"
         />
       </mat-form-field>
 
@@ -26,7 +26,7 @@
         type="submit"
         mat-button
         [mat-dialog-close]="result"
-        [disabled]="!result.topic"
+        [disabled]="!result.title"
       >
         {{ t("TOPIC PROMPT.START VOTE") }}
       </button>

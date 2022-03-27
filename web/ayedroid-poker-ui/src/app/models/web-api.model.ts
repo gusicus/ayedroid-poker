@@ -12,12 +12,19 @@ export interface UniqueEntity {
 export interface SessionDto extends UniqueEntity {
   participants: ParticipantDto[];
   sizes: UniqueEntity[];
+  topics: TopicDto[];
 }
 
 export interface ParticipantDto {
   userId: string;
   type: ParticipantType;
   name: string;
+}
+
+export interface TopicDto extends UniqueEntity {
+  description: string;
+  // UserId, Size
+  votes: Map<string, UniqueEntity>;
 }
 
 export enum ParticipantType {

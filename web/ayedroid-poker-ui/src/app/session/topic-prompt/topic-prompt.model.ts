@@ -1,4 +1,4 @@
 export interface TopicPromptResult {
-  topic: string;
+  title: string;
   description: string;
 }

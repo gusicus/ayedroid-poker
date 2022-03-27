@@ -52,5 +52,17 @@ namespace Ayedroid.Poker.App.Models
         {
             return _participants.ContainsKey(userId);
         }
+
+        public Topic CreateTopic(string title, string description)
+        {
+            Topic topic = new(title)
+            {
+                Description = description
+            };
+
+            _topics[topic.Id] = topic;
+
+            return topic;
+        }
     }
 }

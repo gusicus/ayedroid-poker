@@ -47,17 +47,9 @@ namespace Ayedroid.Poker.App.Controllers
         [HttpGet]
         public IActionResult GetSession(string sessionId)
         {
-            Session session = _sessionService.GetSession(sessionId);
+            SessionDto session = _sessionService.GetSessionDto(sessionId);
 
-            SessionDto sessionDto = new()
-            {
-                Id = session.Id,
-                Name = session.Name,
-                Participants = session.Participants.Select(p => p.ToDto(_userService.GetUser(p.UserId).Name)).ToArray(),
-                Sizes = session.Sizes.ToArray()
-            };
-
-            return Ok(sessionDto);
+            return Ok(session);
         }
 
         /// <summary>
@@ -69,10 +61,6 @@ namespace Ayedroid.Poker.App.Controllers
         [HttpPost]
         public IActionResult JoinSession(string sessionId)
         {
-            Session? session = _sessionService.GetSession(sessionId);
-
-            _logger.LogInformation("New user {UserName} joined {Name} ({Id})", User.GetUserName(), session.Name, session.Id);
-
             _sessionService.JoinSession(sessionId, User.GetUserId(), ParticipantType.Voter);
 
             return Ok();

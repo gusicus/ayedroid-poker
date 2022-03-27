@@ -19,7 +19,14 @@ import { TopicPromptResult } from '../topic-prompt/topic-prompt.model';
   styleUrls: ['./view-session.component.scss'],
 })
 export class ViewSessionComponent implements OnInit {
-  public session: SessionDto | null = null;
+  public session: SessionDto = {
+    id: '',
+    name: '',
+    participants: [],
+    sizes: [],
+    topics: [],
+  };
+
   public history: { name: string; description: string }[] = [];
   public currentTicket: { name: string; description: string } = {
     name: '',
@@ -98,9 +105,30 @@ export class ViewSessionComponent implements OnInit {
       .afterClosed()
       .subscribe((result: TopicPromptResult) => {
         if (result) {
-          console.log(result);
+          this.startNewTopic(this.session.id, result.title, result.description);
         }
       });
+  }
+
+  private startNewTopic(
+    sessionId: string,
+    title: string,
+    description: string
+  ): void {
+    this.webApiService.startNewTopic(sessionId, title, description).subscribe({
+      next: () => {
+        // Nothing. let signalR do the update for all users, including the initiator
+      },
+      error: (e: HttpErrorResponse) => {
+        this.snackBar
+          .open(
+            this.translocoService.translate('ERRORS.ERROR JOINING SESSION'),
+            this.translocoService.translate('MAIN.RETRY')
+          )
+          .onAction()
+          .subscribe(() => this.startNewTopic(sessionId, title, description));
+      },
+    });
   }
 
   public completeEarly(): void {

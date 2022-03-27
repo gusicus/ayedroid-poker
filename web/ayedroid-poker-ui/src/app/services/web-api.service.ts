@@ -69,4 +69,18 @@ export class WebApiService {
   public getSession(sessionId: string): Observable<SessionDto> {
     return this.http.get<SessionDto>(`${this.baseUri}/Session/${sessionId}`);
   }
+
+  public startNewTopic(
+    sessionId: string,
+    title: string,
+    description: string
+  ): Observable<string> {
+    return this.http.post<string>(
+      `${this.baseUri}/Session/${sessionId}/Topic`,
+      {
+        Title: title,
+        Description: description,
+      }
+    );
+  }
 }

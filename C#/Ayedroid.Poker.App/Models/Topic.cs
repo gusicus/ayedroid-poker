@@ -8,5 +8,7 @@
         }
 
         public string Description { get; init; } = string.Empty;
+        // UserId, Size
+        public Dictionary<string, Size> Votes = new Dictionary<string, Size>();
     }
 }

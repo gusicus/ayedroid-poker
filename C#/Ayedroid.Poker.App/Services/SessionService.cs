@@ -1,6 +1,7 @@
 ﻿using Ayedroid.Poker.App.Exceptions;
 using Ayedroid.Poker.App.Interfaces;
 using Ayedroid.Poker.App.Models;
+using Ayedroid.Poker.App.Models.Dto;
 using Ayedroid.Poker.App.Models.Enums;
 using RandomFriendlyNameGenerator;
 
@@ -60,21 +61,33 @@ namespace Ayedroid.Poker.App.Services
             _notificationService.SessionEnded();
         }
 
-        /// <summary>
-        /// Get a session by guid
-        /// </summary>
-        /// <param name="sessionId">Guid of the session to retrieve</param>
-        /// <returns>Session if it exists, null if not</returns>
-        public Session GetSession(string sessionId)
+        private Session GetSession(string sessionId)
         {
             ArgumentNullException.ThrowIfNull(sessionId);
 
             if (!_sessions.ContainsKey(sessionId))
                 throw new SessionNotFoundException();
 
-            Session session = _sessions[sessionId];
+            return _sessions[sessionId];
+        }
 
-            return session;
+        /// <summary>
+        /// Get a session by guid
+        /// </summary>
+        /// <param name="sessionId">Guid of the session to retrieve</param>
+        /// <returns>Session if it exists, null if not</returns>
+        public SessionDto GetSessionDto(string sessionId)
+        {
+            Session session = GetSession(sessionId);
+
+            return new SessionDto()
+            {
+                Id = session.Id,
+                Name = session.Name,
+                Participants = session.Participants.Select(p => p.ToDto(_userService.GetUser(p.UserId).Name)),
+                Sizes = session.Sizes,
+                Topics = session.Topics
+            };
         }
 
         public void JoinSession(string sessionId, string userId, ParticipantType participantType)
@@ -83,7 +96,6 @@ namespace Ayedroid.Poker.App.Services
             ArgumentNullException.ThrowIfNull(userId);
 
             var session = GetSession(sessionId);
-
 
             Participant participant = !session.HasParticipant(userId) ? session.AddParticipant(userId, participantType) : session.GetParticipant(userId);
 
@@ -99,6 +111,11 @@ namespace Ayedroid.Poker.App.Services
             } while (_sessions.ContainsKey(id));
 
             return id;
+        }
+
+        public Topic CreateTopic(string sessionId, string title, string description)
+        {
+            return GetSession(sessionId).CreateTopic(title, description);
         }
     }
 }

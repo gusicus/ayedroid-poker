@@ -8,7 +8,7 @@ import { TopicPromptResult } from './topic-prompt.model';
 })
 export class TopicPromptComponent {
   public result: TopicPromptResult = {
-    topic: '',
+    title: '',
     description: '',
   };
 

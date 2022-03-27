@@ -1,6 +1,7 @@
 using Ayedroid.Poker.App.Exceptions;
 using Ayedroid.Poker.App.Interfaces;
 using Ayedroid.Poker.App.Models;
+using Ayedroid.Poker.App.Models.Dto;
 using Ayedroid.Poker.App.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -43,8 +44,7 @@ namespace Ayedroid.Poker.App.Test
 
             try
             {
-                Session session = _sessionService.GetSession(newId);
-                Assert.IsNotNull(session);
+                SessionDto session = _sessionService.GetSessionDto(newId);
                 Assert.AreEqual(newId, session.Id);
             }
             catch (SessionNotFoundException)
@@ -60,7 +60,7 @@ namespace Ayedroid.Poker.App.Test
 
             Assert.ThrowsException<SessionNotFoundException>(() =>
             {
-                _sessionService.GetSession("abc");
+                _sessionService.GetSessionDto("abc");
             });
         }
 
@@ -73,7 +73,7 @@ namespace Ayedroid.Poker.App.Test
             // Check session exists
             try
             {
-                Session session = _sessionService.GetSession(newId);
+                SessionDto session = _sessionService.GetSessionDto(newId);
             }
             catch (SessionNotFoundException)
             {
@@ -84,7 +84,7 @@ namespace Ayedroid.Poker.App.Test
 
             Assert.ThrowsException<SessionNotFoundException>(() =>
             {
-                _sessionService.GetSession(newId.ToString());
+                _sessionService.GetSessionDto(newId.ToString());
             });
         }
 
