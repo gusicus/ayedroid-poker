@@ -29,12 +29,12 @@ namespace Ayedroid.Poker.App.Services
         /// </summary>
         /// <param name="sessionName">Display name of the session. Does not have to be unique</param>
         /// <returns>Guid of the new session. Required for any further session interaction</returns>
-        public string AddSession(string sessionName)
+        public string AddSession(string sessionName, IEnumerable<string> sizes)
         {
             ArgumentNullException.ThrowIfNull(sessionName);
 
             string id = GetRandomSessionId();
-            var session = new Session(sessionName, id);
+            Session session = new(sessionName, id, sizes);
 
             _sessions.Add(session.Id, session);
 

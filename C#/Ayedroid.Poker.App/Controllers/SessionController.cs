@@ -33,7 +33,7 @@ namespace Ayedroid.Poker.App.Controllers
         [HttpPost]
         public IActionResult StartNewSession([FromBody] StartSessionDto startSessionDto)
         {
-            string sessionId = _sessionService.AddSession(startSessionDto.SessionName);
+            string sessionId = _sessionService.AddSession(startSessionDto.SessionName, startSessionDto.Sizes);
             _sessionService.JoinSession(sessionId, User.GetUserId(), ParticipantType.Owner);
             return Ok(sessionId);
         }
@@ -53,7 +53,8 @@ namespace Ayedroid.Poker.App.Controllers
             {
                 Id = session.Id,
                 Name = session.Name,
-                Participants = session.Participants.Select(p => p.ToDto(_userService.GetUser(p.UserId).Name)).ToArray()
+                Participants = session.Participants.Select(p => p.ToDto(_userService.GetUser(p.UserId).Name)).ToArray(),
+                Sizes = session.Sizes.ToArray()
             };
 
             return Ok(sessionDto);

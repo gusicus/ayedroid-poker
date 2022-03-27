@@ -31,5 +31,8 @@
     "TOPIC": "Topic",
     "DESCRIPTION": "Description (optional)",
     "START VOTE": "Start vote"
+  },
+  "START SESSION": {
+    "SIZES": "Sizes"
   }
 }

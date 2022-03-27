@@ -12,9 +12,16 @@ namespace Ayedroid.Poker.App.Models
         private readonly Dictionary<string, Topic> _topics = new();
         public ReadOnlyCollection<Topic> Topics => _topics.Values.ToList().AsReadOnly();
 
-        public Session(string sessionName, string id) : base(sessionName, id)
-        {
+        private readonly Dictionary<string, Size> _sizes = new();
+        public ReadOnlyCollection<Size> Sizes => _sizes.Values.ToList().AsReadOnly();
 
+        public Session(string sessionName, string id, IEnumerable<string> sizes) : base(sessionName, id)
+        {
+            foreach (string sizeName in sizes)
+            {
+                Size size = new(sizeName);
+                _sizes[size.Id] = size;
+            }
         }
 
         public Participant AddParticipant(string userId, ParticipantType participantType)

@@ -44,13 +44,16 @@
             [multiple]="false"
             (selectionChange)="onSizeChoiceChange($event)"
           >
-            <mat-list-option *ngFor="let size of sizes" [value]="size">
-              {{ size }}
+            <mat-list-option
+              *ngFor="let size of session?.sizes"
+              [value]="size.id"
+            >
+              {{ size.name }}
               <mat-icon
                 matListIcon
-                [color]="sizeChoice === size ? 'accent' : 'default'"
+                [color]="sizeChoice === size.id ? 'accent' : 'default'"
                 >{{
-                  sizeChoice === size
+                  sizeChoice === size.id
                     ? "radio_button_checked"
                     : "radio_button_unchecked"
                 }}</mat-icon

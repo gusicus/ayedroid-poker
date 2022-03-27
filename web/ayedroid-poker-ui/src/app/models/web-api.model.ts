@@ -11,6 +11,7 @@ export interface UniqueEntity {
 
 export interface SessionDto extends UniqueEntity {
   participants: ParticipantDto[];
+  sizes: UniqueEntity[];
 }
 
 export interface ParticipantDto {

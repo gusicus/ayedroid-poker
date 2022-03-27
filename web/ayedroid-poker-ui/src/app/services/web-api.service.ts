@@ -31,11 +31,15 @@ export class WebApiService {
     });
   }
 
-  public startSession(sessionName: string): Observable<string> {
+  public startSession(
+    sessionName: string,
+    sizes: string[]
+  ): Observable<string> {
     return this.userNameCheck().pipe(
       switchMap(() =>
         this.http.post<string>(`${this.baseUri}/Session`, {
           SessionName: sessionName,
+          Sizes: sizes,
         })
       )
     );

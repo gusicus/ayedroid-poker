@@ -20,7 +20,6 @@ import { TopicPromptResult } from '../topic-prompt/topic-prompt.model';
 })
 export class ViewSessionComponent implements OnInit {
   public session: SessionDto | null = null;
-  public sizes = ['S', 'M', 'L', 'XL'];
   public history: { name: string; description: string }[] = [];
   public currentTicket: { name: string; description: string } = {
     name: '',
