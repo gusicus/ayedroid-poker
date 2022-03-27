@@ -88,4 +88,12 @@ export class ViewSessionComponent implements OnInit {
   public onSizeChoiceChange(event: MatSelectionListChange): void {
     this.sizeChoice = event.source.selectedOptions.selected[0].value;
   }
+
+  public nextTopic(): void {
+    throw new Error('Method not implemented.');
+  }
+
+  public completeEarly(): void {
+    throw new Error('Method not implemented.');
+  }
 }

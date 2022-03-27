@@ -58,6 +58,23 @@
             </mat-list-option>
           </mat-selection-list>
         </mat-card-content>
+        <mat-card-actions align="end">
+          <button
+            mat-stroked-button
+            (click)="completeEarly()"
+            class="margin-horizontal"
+          >
+            {{ t("VIEW SESSION.COMPLETE EARLY") }}
+          </button>
+          <button
+            mat-flat-button
+            color="accent"
+            (click)="nextTopic()"
+            class="margin-horizontal"
+          >
+            {{ t("VIEW SESSION.NEXT TOPIC") }}
+          </button>
+        </mat-card-actions>
       </mat-card>
       <section fxLayout="column" fxFlex class="vertical-scrollbar">
         <mat-accordion>

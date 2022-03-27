@@ -22,6 +22,8 @@
   "VIEW SESSION": {
     "PARTICIPANTS": "Participants",
     "REMOVE": "Remove from session",
-    "CHANGE PERMISSIONS": "Change permissions"
+    "CHANGE PERMISSIONS": "Change permissions",
+    "NEXT TOPIC": "Next Topic",
+    "COMPLETE EARLY": "Complete Early"
   }
 }
