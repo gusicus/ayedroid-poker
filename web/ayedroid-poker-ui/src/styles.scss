@@ -15,37 +15,37 @@ body {
 @for $i from 5 through 100 {
   @if $i % 5 == 0 {
     .margin-#{$i} {
-      margin: #{$i}px;
+      margin: #{$i}px !important;
     }
 
     .padding-#{$i} {
-      padding: #{$i}px;
+      padding: #{$i}px !important;
     }
 
     .width-#{$i} {
-      width: percentage(calc($i / 100));
+      width: percentage(calc($i / 100)) !important;
     }
   }
 }
 
 .padding-vertical {
-  padding-top: #{$default-padding}px;
-  padding-bottom: #{$default-padding}px;
+  padding-top: #{$default-padding}px !important;
+  padding-bottom: #{$default-padding}px !important;
 }
 
 .padding-horizontal {
-  padding-left: #{$default-padding}px;
-  padding-right: #{$default-padding}px;
+  padding-left: #{$default-padding}px !important;
+  padding-right: #{$default-padding}px !important;
 }
 
 .margin-vertical {
-  margin-top: #{$default-margin}px;
-  margin-bottom: #{$default-margin}px;
+  margin-top: #{$default-margin}px !important;
+  margin-bottom: #{$default-margin}px !important;
 }
 
 .margin-horizontal {
-  margin-left: #{$default-margin}px;
-  margin-right: #{$default-margin}px;
+  margin-left: #{$default-margin}px !important;
+  margin-right: #{$default-margin}px !important;
 }
 
 .no-bottom-space {
