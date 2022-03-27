@@ -10,7 +10,7 @@ namespace Ayedroid.Poker.App.Models
         public ReadOnlyCollection<Participant> Participants => _participants.Values.ToList().AsReadOnly();
 
         private readonly Dictionary<string, Topic> _topics = new();
-        public ReadOnlyCollection<Topic> Topics => _topics.Values.ToList().AsReadOnly();
+        public ReadOnlyCollection<Topic> Topics => _topics.Values.OrderByDescending(t => t.Order).ToList().AsReadOnly();
 
         private readonly Dictionary<string, Size> _sizes = new();
         public ReadOnlyCollection<Size> Sizes => _sizes.Values.ToList().AsReadOnly();
@@ -57,7 +57,8 @@ namespace Ayedroid.Poker.App.Models
         {
             Topic topic = new(title)
             {
-                Description = description
+                Description = description,
+                Order = _topics.Count
             };
 
             _topics[topic.Id] = topic;
