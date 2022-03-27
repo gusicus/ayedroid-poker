@@ -24,7 +24,8 @@
     "REMOVE": "Remove from session",
     "CHANGE PERMISSIONS": "Change permissions",
     "NEXT TOPIC": "Next Topic",
-    "COMPLETE EARLY": "Complete Early"
+    "COMPLETE EARLY": "Complete Early",
+    "NO DESCRIPTION": "No description"
   },
   "TOPIC PROMPT": {
     "TITLE": "Next Topic",

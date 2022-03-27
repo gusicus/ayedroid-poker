@@ -115,7 +115,11 @@ namespace Ayedroid.Poker.App.Services
 
         public Topic CreateTopic(string sessionId, string title, string description)
         {
-            return GetSession(sessionId).CreateTopic(title, description);
+            Topic topic = GetSession(sessionId).CreateTopic(title, description);
+
+            _notificationService.NewTopic(sessionId, topic);
+
+            return topic;
         }
     }
 }

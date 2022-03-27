@@ -2,8 +2,11 @@ import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalR';
 import { ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ParticipantChange } from '../models/signal-r.models';
-import { ParticipantDto } from '../models/web-api.model';
+import {
+  ParticipantNotification,
+  TopicNotification,
+} from '../models/signal-r.models';
+import { ParticipantDto, TopicDto } from '../models/web-api.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +14,9 @@ import { ParticipantDto } from '../models/web-api.model';
 export class SignalRService {
   private hubConnection: signalR.HubConnection | undefined;
 
-  public participantJoined$ = new ReplaySubject<ParticipantChange>(1);
-  public participantLeft$ = new ReplaySubject<ParticipantChange>(1);
+  public participantJoined$ = new ReplaySubject<ParticipantNotification>(1);
+  public participantLeft$ = new ReplaySubject<ParticipantNotification>(1);
+  public newTopic$ = new ReplaySubject<TopicNotification>(1);
 
   public constructor() {}
 
@@ -38,6 +42,13 @@ export class SignalRService {
       'ParticipantLeft',
       (sessionId: string, participant: ParticipantDto): void => {
         this.participantLeft$.next({ sessionId, participant });
+      }
+    );
+
+    this.hubConnection.on(
+      'NewTopic',
+      (sessionId: string, topic: TopicDto): void => {
+        this.newTopic$.next({ sessionId, topic });
       }
     );
   }

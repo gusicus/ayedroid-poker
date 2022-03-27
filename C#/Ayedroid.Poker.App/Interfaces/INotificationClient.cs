@@ -1,4 +1,5 @@
-﻿using Ayedroid.Poker.App.Models.Dto;
+﻿using Ayedroid.Poker.App.Models;
+using Ayedroid.Poker.App.Models.Dto;
 
 namespace Ayedroid.Poker.App.Interfaces
 {
@@ -6,6 +7,7 @@ namespace Ayedroid.Poker.App.Interfaces
     {
         Task ParticipantJoined(string sessionId, ParticipantDto participant);
         Task ParticipantLeft(string sessionId, ParticipantDto participant);
+        Task NewTopic(string sessionId, Topic topic);
         Task SessionEnded();
     }
 }

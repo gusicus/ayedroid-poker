@@ -5,8 +5,15 @@ import { MatSelectionListChange } from '@angular/material/list';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
-import { ParticipantChange } from 'src/app/models/signal-r.models';
-import { SessionDto } from 'src/app/models/web-api.model';
+import {
+  ParticipantNotification,
+  TopicNotification,
+} from 'src/app/models/signal-r.models';
+import {
+  SessionDto,
+  TopicDto,
+  UniqueEntity,
+} from 'src/app/models/web-api.model';
 import { SignalRService } from 'src/app/services/signal-r.service';
 import { UserStorageService } from 'src/app/services/user-storage.service';
 import { WebApiService } from 'src/app/services/web-api.service';
@@ -27,11 +34,14 @@ export class ViewSessionComponent implements OnInit {
     topics: [],
   };
 
-  public history: { name: string; description: string }[] = [];
-  public currentTicket: { name: string; description: string } = {
-    name: '',
+  public topicHistory: TopicDto[] = [];
+  public currentTopic: TopicDto = {
     description: '',
+    id: '',
+    name: '',
+    votes: new Map<string, UniqueEntity>(),
   };
+
   public sizeChoice: string = '';
 
   public constructor(
@@ -45,24 +55,24 @@ export class ViewSessionComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    for (let i = 0; i < 30; i++) {
-      this.history.push({
-        name: 'Ticket' + i,
-        description: 'Description for ' + i,
-      });
-    }
-
-    this.currentTicket =
-      this.history[Math.floor(Math.random() * this.history.length + 0)];
     this.joinSession(this.activatedRoute.snapshot.params['sessionId']);
 
     this.signalRService.participantJoined$.subscribe(
-      (newParticipant: ParticipantChange) => {
+      (newParticipant: ParticipantNotification) => {
         if (this.session) {
           this.session.participants = [
             ...this.session.participants,
             newParticipant.participant,
           ];
+        }
+      }
+    );
+
+    this.signalRService.newTopic$.subscribe(
+      (topicNotification: TopicNotification) => {
+        if (this.session) {
+          this.topicHistory = [this.currentTopic, ...this.topicHistory];
+          this.currentTopic = topicNotification.topic;
         }
       }
     );
@@ -73,6 +83,11 @@ export class ViewSessionComponent implements OnInit {
       next: (session) => {
         this.session = session;
         this.userStorageService.activeSession = session;
+
+        if (session.topics.length > 0) {
+          this.currentTopic = session.topics[0];
+          this.topicHistory = session.topics.slice(1);
+        }
       },
       error: (e: HttpErrorResponse) => {
         if (e.status === 404) {
