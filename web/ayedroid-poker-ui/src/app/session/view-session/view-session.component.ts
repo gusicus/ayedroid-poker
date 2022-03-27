@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatSelectionListChange } from '@angular/material/list';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
@@ -20,6 +21,7 @@ export class ViewSessionComponent implements OnInit {
     name: '',
     description: '',
   };
+  public sizeChoice: string = '';
 
   public constructor(
     private activatedRoute: ActivatedRoute,
@@ -67,5 +69,9 @@ export class ViewSessionComponent implements OnInit {
           .subscribe(() => this.joinSession(sessionId));
       },
     });
+  }
+
+  public onSizeChoiceChange(event: MatSelectionListChange): void {
+    this.sizeChoice = event.source.selectedOptions.selected[0].value;
   }
 }

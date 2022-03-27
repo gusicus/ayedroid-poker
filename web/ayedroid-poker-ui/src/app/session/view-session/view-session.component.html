@@ -40,9 +40,21 @@
         </mat-card-header>
         <mat-divider></mat-divider>
         <mat-card-content>
-          <mat-selection-list [multiple]="false">
+          <mat-selection-list
+            [multiple]="false"
+            (selectionChange)="onSizeChoiceChange($event)"
+          >
             <mat-list-option *ngFor="let size of sizes" [value]="size">
               {{ size }}
+              <mat-icon
+                matListIcon
+                [color]="sizeChoice === size ? 'accent' : 'default'"
+                >{{
+                  sizeChoice === size
+                    ? "radio_button_checked"
+                    : "radio_button_unchecked"
+                }}</mat-icon
+              >
             </mat-list-option>
           </mat-selection-list>
         </mat-card-content>
