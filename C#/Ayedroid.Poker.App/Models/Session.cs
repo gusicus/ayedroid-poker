@@ -7,13 +7,15 @@ namespace Ayedroid.Poker.App.Models
     public class Session : UniqueEntity
     {
         private readonly Dictionary<string, Participant> _participants = new();
+        public ReadOnlyCollection<Participant> Participants => _participants.Values.ToList().AsReadOnly();
+
+        private readonly Dictionary<string, Topic> _topics = new();
+        public ReadOnlyCollection<Topic> Topics => _topics.Values.ToList().AsReadOnly();
 
         public Session(string sessionName, string id) : base(sessionName, id)
         {
 
         }
-
-        public ReadOnlyCollection<Participant> Participants => _participants.Values.ToList().AsReadOnly();
 
         public Participant AddParticipant(string userId, ParticipantType participantType)
         {
