@@ -17,14 +17,7 @@ const string expiredTokenHeader = "token-expired";
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(
-                      builder =>
-                      {
-                          builder.WithOrigins("http://localhost:4200/");
-                      });
-});
+builder.Services.AddCors();
 
 TokenAuthOptions tokenAuthOptions = new()
 {
@@ -174,15 +167,21 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors((o) =>
-   o.AllowAnyOrigin()
+   o.WithOrigins("http://localhost:4200")
   .AllowAnyMethod()
   .AllowAnyHeader()
   .WithExposedHeaders(expiredTokenHeader, invalidTokenHeader)
+  .AllowCredentials()
 );
 
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapHub<NotificationHub>("/Notifications");
+});
 
 app.Run();
