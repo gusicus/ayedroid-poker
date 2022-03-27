@@ -25,5 +25,11 @@
     "CHANGE PERMISSIONS": "Change permissions",
     "NEXT TOPIC": "Next Topic",
     "COMPLETE EARLY": "Complete Early"
+  },
+  "TOPIC PROMPT": {
+    "TITLE": "Next Topic",
+    "TOPIC": "Topic",
+    "DESCRIPTION": "Description (optional)",
+    "START VOTE": "Start vote"
   }
 }

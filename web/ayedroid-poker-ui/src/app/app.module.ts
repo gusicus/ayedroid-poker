@@ -37,6 +37,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { APP_INITIALIZER } from '@angular/core';
 import { AppStartService } from './services/app-start.service';
 import { Observable } from 'rxjs';
+import { TopicPromptComponent } from './session/topic-prompt/topic-prompt.component';
 import {
   MatFormFieldDefaultOptions,
   MAT_FORM_FIELD_DEFAULT_OPTIONS,
@@ -50,6 +51,7 @@ import {
     NamePromptComponent,
     JoinSessionComponent,
     ViewSessionComponent,
+    TopicPromptComponent,
   ],
   imports: [
     BrowserModule,

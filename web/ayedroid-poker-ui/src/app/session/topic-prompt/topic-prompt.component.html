@@ -1,0 +1,35 @@
+<ng-container *transloco="let t">
+  <form>
+    <h2 mat-dialog-title>{{ t("TOPIC PROMPT.TITLE") }}</h2>
+    <mat-dialog-content>
+      <mat-form-field color="accent" class="width-100">
+        <mat-label>{{ t("TOPIC PROMPT.TOPIC") }}</mat-label>
+        <input
+          type="text"
+          matInput
+          name="username"
+          [(ngModel)]="result.topic"
+        />
+      </mat-form-field>
+
+      <mat-form-field color="accent" class="width-100">
+        <mat-label>{{ t("TOPIC PROMPT.DESCRIPTION") }}</mat-label>
+        <textarea
+          matInput
+          name="description"
+          [(ngModel)]="result.description"
+        ></textarea>
+      </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button
+        type="submit"
+        mat-button
+        [mat-dialog-close]="result"
+        [disabled]="!result.topic"
+      >
+        {{ t("TOPIC PROMPT.START VOTE") }}
+      </button>
+    </mat-dialog-actions>
+  </form>
+</ng-container>

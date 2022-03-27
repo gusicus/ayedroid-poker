@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSelectionListChange } from '@angular/material/list';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -9,6 +10,8 @@ import { SessionDto } from 'src/app/models/web-api.model';
 import { SignalRService } from 'src/app/services/signal-r.service';
 import { UserStorageService } from 'src/app/services/user-storage.service';
 import { WebApiService } from 'src/app/services/web-api.service';
+import { TopicPromptComponent } from '../topic-prompt/topic-prompt.component';
+import { TopicPromptResult } from '../topic-prompt/topic-prompt.model';
 
 @Component({
   selector: 'pkr-view-session',
@@ -31,7 +34,8 @@ export class ViewSessionComponent implements OnInit {
     private snackBar: MatSnackBar,
     private translocoService: TranslocoService,
     private userStorageService: UserStorageService,
-    private signalRService: SignalRService
+    private signalRService: SignalRService,
+    private dialog: MatDialog
   ) {}
 
   public ngOnInit(): void {
@@ -90,7 +94,14 @@ export class ViewSessionComponent implements OnInit {
   }
 
   public nextTopic(): void {
-    throw new Error('Method not implemented.');
+    this.dialog
+      .open(TopicPromptComponent)
+      .afterClosed()
+      .subscribe((result: TopicPromptResult) => {
+        if (result) {
+          console.log(result);
+        }
+      });
   }
 
   public completeEarly(): void {
