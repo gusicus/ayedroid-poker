@@ -121,5 +121,12 @@ namespace Ayedroid.Poker.App.Services
 
             return topic;
         }
+
+        public void CastVote(string sessionId, string topicId, string userId, string sizeId)
+        {
+            GetSession(sessionId).CastVote(topicId, userId, sizeId);
+
+            _notificationService.NewTopicVote(sessionId, topicId, userId, sizeId);
+        }
     }
 }

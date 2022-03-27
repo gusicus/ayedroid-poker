@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import {
   ParticipantNotification,
   TopicNotification,
+  TopicVoteNotification,
 } from '../models/signal-r.models';
 import { ParticipantDto, TopicDto } from '../models/web-api.model';
 
@@ -17,6 +18,7 @@ export class SignalRService {
   public participantJoined$ = new ReplaySubject<ParticipantNotification>(1);
   public participantLeft$ = new ReplaySubject<ParticipantNotification>(1);
   public newTopic$ = new ReplaySubject<TopicNotification>(1);
+  public newTopicVote$ = new ReplaySubject<TopicVoteNotification>(1);
 
   public constructor() {}
 
@@ -49,6 +51,18 @@ export class SignalRService {
       'NewTopic',
       (sessionId: string, topic: TopicDto): void => {
         this.newTopic$.next({ sessionId, topic });
+      }
+    );
+
+    this.hubConnection.on(
+      'NewTopicVote',
+      (
+        sessionId: string,
+        topicId: string,
+        userId: string,
+        sizeId: string
+      ): void => {
+        this.newTopicVote$.next({ sessionId, topicId, userId, sizeId });
       }
     );
   }

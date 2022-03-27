@@ -1,16 +1,20 @@
+using Ayedroid.Poker.App.Interfaces;
+using Ayedroid.Poker.App.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ayedroid.Poker.App.App.Controllers
 {
     [ApiController]
-    [Route("api/v1/{sessionId}/[controller]")]
+    [Route("api/v1/Session/{sessionId}/{topicId}/[controller]")]
     public class VoteController : ControllerBase
     {
         private readonly ILogger<VoteController> _logger;
+        private readonly ISessionService _sessionService;
 
-        public VoteController(ILogger<VoteController> logger)
+        public VoteController(ILogger<VoteController> logger, ISessionService sessionService)
         {
             _logger = logger;
+            _sessionService = sessionService;
         }
 
         [Route("")]
@@ -20,11 +24,12 @@ namespace Ayedroid.Poker.App.App.Controllers
             throw new NotImplementedException();
         }
 
-        [Route("{size}")]
-        [HttpPost]
-        public IActionResult CastVote(string sessionId, string size)
+        [Route("")]
+        [HttpPut]
+        public IActionResult CastVote(string sessionId, string topicId, string sizeId)
         {
-            throw new NotImplementedException();
+            _sessionService.CastVote(sessionId, topicId, User.GetUserId(), sizeId);
+            return Ok();
         }
     }
 }

@@ -11,5 +11,6 @@ namespace Ayedroid.Poker.App.Interfaces
         void EndSession(string sessionId);
         void JoinSession(string sessionId, string userId, ParticipantType participantType);
         Topic CreateTopic(string sessionId, string title, string description);
+        void CastVote(string sessionId, string topicId, string userId, string sizeId);
     }
 }

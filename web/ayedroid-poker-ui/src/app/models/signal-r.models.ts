@@ -11,3 +11,9 @@ export interface ParticipantNotification extends BaseNotification {
 export interface TopicNotification extends BaseNotification {
   topic: TopicDto;
 }
+
+export interface TopicVoteNotification extends BaseNotification {
+  topicId: string;
+  userId: string;
+  sizeId: string;
+}

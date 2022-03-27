@@ -1,13 +1,17 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSelectionListChange } from '@angular/material/list';
+import {
+  MatSelectionList,
+  MatSelectionListChange,
+} from '@angular/material/list';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import {
   ParticipantNotification,
   TopicNotification,
+  TopicVoteNotification,
 } from 'src/app/models/signal-r.models';
 import {
   SessionDto,
@@ -35,6 +39,7 @@ export class ViewSessionComponent implements OnInit {
   };
 
   public topicHistory: TopicDto[] = [];
+
   public currentTopic: TopicDto = {
     description: '',
     id: '',
@@ -43,6 +48,8 @@ export class ViewSessionComponent implements OnInit {
   };
 
   public sizeChoice: string = '';
+
+  private selectionList: MatSelectionList | undefined = undefined;
 
   public constructor(
     private activatedRoute: ActivatedRoute,
@@ -74,7 +81,30 @@ export class ViewSessionComponent implements OnInit {
           if (this.currentTopic.id) {
             this.topicHistory = [this.currentTopic, ...this.topicHistory];
           }
-          this.currentTopic = topicNotification.topic;
+          this.currentTopic = {
+            description: topicNotification.topic.description,
+            id: topicNotification.topic.id,
+            name: topicNotification.topic.name,
+            votes: new Map<string, UniqueEntity>(),
+          };
+          this.selectionList?.deselectAll();
+          this.sizeChoice = '';
+        }
+      }
+    );
+
+    this.signalRService.newTopicVote$.subscribe(
+      (topicNotification: TopicVoteNotification) => {
+        if (this.session) {
+          if (this.currentTopic.id === topicNotification.topicId) {
+            const size = this.session.sizes.find(
+              (s) => s.id === topicNotification.sizeId
+            );
+
+            if (!size) return;
+
+            this.currentTopic.votes.set(topicNotification.userId, size);
+          }
         }
       }
     );
@@ -87,7 +117,12 @@ export class ViewSessionComponent implements OnInit {
         this.userStorageService.activeSession = session;
 
         if (session.topics.length > 0) {
-          this.currentTopic = session.topics[0];
+          this.currentTopic = {
+            description: session.topics[0].description,
+            id: session.topics[0].id,
+            name: session.topics[0].name,
+            votes: new Map<string, UniqueEntity>(),
+          };
           this.topicHistory = session.topics.slice(1);
         }
       },
@@ -114,6 +149,25 @@ export class ViewSessionComponent implements OnInit {
 
   public onSizeChoiceChange(event: MatSelectionListChange): void {
     this.sizeChoice = event.source.selectedOptions.selected[0].value;
+    this.selectionList = event.source;
+    this.castVote(this.session.id, this.currentTopic.id, this.sizeChoice);
+  }
+
+  private castVote(sessionId: string, topicId: string, sizeId: string): void {
+    this.webApiService.castVote(sessionId, topicId, sizeId).subscribe({
+      next: () => {
+        // Let signalR handle it
+      },
+      error: (e: HttpErrorResponse) => {
+        this.snackBar
+          .open(
+            this.translocoService.translate('ERRORS.ERROR JOINING SESSION'),
+            this.translocoService.translate('MAIN.RETRY')
+          )
+          .onAction()
+          .subscribe(() => this.joinSession(sessionId));
+      },
+    });
   }
 
   public nextTopic(): void {

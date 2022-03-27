@@ -29,6 +29,11 @@ namespace Ayedroid.Poker.App.Services
             await _notificationHub.Clients.All.NewTopic(sessionId, topic);
         }
 
+        public async Task NewTopicVote(string sessionId, string topicId, string userId, string sizeId)
+        {
+            await _notificationHub.Clients.All.NewTopicVote(sessionId, topicId, userId, sizeId);
+        }
+
         public async Task ParticipantJoined(string sessionId, ParticipantDto participant)
         {
             await _notificationHub.Clients.All.ParticipantJoined(sessionId, participant);

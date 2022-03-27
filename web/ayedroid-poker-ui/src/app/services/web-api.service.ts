@@ -83,4 +83,15 @@ export class WebApiService {
       }
     );
   }
+
+  public castVote(
+    sessionId: string,
+    topicId: string,
+    sizeId: string
+  ): Observable<unknown> {
+    return this.http.put<unknown>(
+      `${this.baseUri}/Session/${sessionId}/${topicId}/Vote?sizeId=${sizeId}`,
+      {}
+    );
+  }
 }

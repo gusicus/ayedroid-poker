@@ -6,13 +6,15 @@
         <mat-card-subtitle
           >{{ session.participants.length }} online</mat-card-subtitle
         >
-        <mat-icon mat-card-avatar>person</mat-icon>
+        <mat-icon mat-card-avatar>group</mat-icon>
       </mat-card-header>
       <mat-divider></mat-divider>
       <mat-card-content>
         <mat-list dense>
           <mat-list-item *ngFor="let participant of session.participants">
-            <mat-icon mat-list-icon>group</mat-icon>
+            <mat-icon mat-list-icon>{{
+              currentTopic.votes.has(participant.userId) ? "done" : "pending"
+            }}</mat-icon>
             <div mat-line>{{ participant.name }}</div>
             <div mat-line>{{ participant.type }}</div>
             <button mat-icon-button [matMenuTriggerFor]="menu">

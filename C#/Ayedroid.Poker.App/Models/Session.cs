@@ -65,5 +65,12 @@ namespace Ayedroid.Poker.App.Models
 
             return topic;
         }
+
+        public void CastVote(string topicId, string userId, string sizeId)
+        {
+            Topic topic = _topics[topicId];
+
+            topic.Votes[userId] = _sizes[sizeId];
+        }
     }
 }
