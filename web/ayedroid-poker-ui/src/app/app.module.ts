@@ -19,6 +19,7 @@ import { TranslocoRootModule } from '../transloco/transloco-root.module';
 import { MatCardModule } from '@angular/material/card';
 import { HomeComponent } from './home/home.component';
 import {
+  MatSnackBarConfig,
   MatSnackBarModule,
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
 } from '@angular/material/snack-bar';
@@ -36,6 +37,10 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { APP_INITIALIZER } from '@angular/core';
 import { AppStartService } from './services/app-start.service';
 import { Observable } from 'rxjs';
+import {
+  MatFormFieldDefaultOptions,
+  MAT_FORM_FIELD_DEFAULT_OPTIONS,
+} from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -79,7 +84,10 @@ import { Observable } from 'rxjs';
     },
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-      useValue: { duration: 5000, horizontalPosition: 'end' },
+      useValue: <MatSnackBarConfig<any>>{
+        duration: 5000,
+        horizontalPosition: 'end',
+      },
     },
     {
       provide: APP_INITIALIZER,
@@ -88,6 +96,10 @@ import { Observable } from 'rxjs';
           appStartService.init(),
       deps: [AppStartService],
       multi: true,
+    },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: <MatFormFieldDefaultOptions>{ appearance: 'fill' },
     },
   ],
   bootstrap: [AppComponent],
