@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { concatMap, EMPTY, Observable, of, switchMap, tap } from 'rxjs';
+import { concatMap, EMPTY, map, Observable, of, switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { SessionDto, TokenDto } from '../models/web-api.model';
+import { SessionDto, TokenDto, UniqueEntity } from '../models/web-api.model';
 import { NamePromptComponent } from '../name-prompt/name-prompt.component';
 import { UserStorageService } from './user-storage.service';
 
@@ -67,7 +67,17 @@ export class WebApiService {
   }
 
   public getSession(sessionId: string): Observable<SessionDto> {
-    return this.http.get<SessionDto>(`${this.baseUri}/Session/${sessionId}`);
+    return this.http
+      .get<SessionDto>(`${this.baseUri}/Session/${sessionId}`)
+      .pipe(
+        map((sessionDto) => {
+          sessionDto.topics.forEach((t) =>
+            t.votes ? t.votes : new Map<string, UniqueEntity>()
+          );
+
+          return sessionDto;
+        })
+      );
   }
 
   public startNewTopic(

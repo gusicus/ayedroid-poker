@@ -24,7 +24,7 @@ export interface ParticipantDto {
 export interface TopicDto extends UniqueEntity {
   description: string;
   // UserId, Size
-  votes: Map<string, UniqueEntity>;
+  votes: { [key: string]: UniqueEntity };
 }
 
 export enum ParticipantType {

@@ -44,7 +44,7 @@ export class ViewSessionComponent implements OnInit {
     description: '',
     id: '',
     name: '',
-    votes: new Map<string, UniqueEntity>(),
+    votes: {},
   };
 
   public sizeChoice: string = '';
@@ -85,7 +85,7 @@ export class ViewSessionComponent implements OnInit {
             description: topicNotification.topic.description,
             id: topicNotification.topic.id,
             name: topicNotification.topic.name,
-            votes: new Map<string, UniqueEntity>(),
+            votes: {},
           };
           this.selectionList?.deselectAll();
           this.sizeChoice = '';
@@ -103,7 +103,7 @@ export class ViewSessionComponent implements OnInit {
 
             if (!size) return;
 
-            this.currentTopic.votes.set(topicNotification.userId, size);
+            this.currentTopic.votes[topicNotification.userId] = size;
           }
         }
       }
@@ -121,7 +121,7 @@ export class ViewSessionComponent implements OnInit {
             description: session.topics[0].description,
             id: session.topics[0].id,
             name: session.topics[0].name,
-            votes: new Map<string, UniqueEntity>(),
+            votes: {},
           };
           this.topicHistory = session.topics.slice(1);
         }

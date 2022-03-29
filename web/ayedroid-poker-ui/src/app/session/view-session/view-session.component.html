@@ -13,7 +13,7 @@
         <mat-list dense>
           <mat-list-item *ngFor="let participant of session.participants">
             <mat-icon mat-list-icon>{{
-              currentTopic.votes.has(participant.userId) ? "done" : "pending"
+              currentTopic.votes[participant.userId] ? "done" : "pending"
             }}</mat-icon>
             <div mat-line>{{ participant.name }}</div>
             <div mat-line>{{ participant.type }}</div>
@@ -100,14 +100,17 @@
             <mat-expansion-panel-header>
               <mat-panel-title>{{ topic.name }}</mat-panel-title>
               <mat-panel-description
-                >{{
-                  topic.description
-                    ? topic.description
-                    : t("VIEW SESSION.NO DESCRIPTION")
-                }}
+                ><span *ngFor="let vote of topic.votes | keyvalue">{{
+                  vote.value.name
+                }}</span>
               </mat-panel-description>
             </mat-expansion-panel-header>
-            <p>This is the primary content of the panel.</p>
+            <mat-chip-list *ngFor="let participant of session.participants">
+              <mat-chip disableRipple *ngIf="topic.votes[participant.userId]">
+                {{ participant.name }} -
+                {{ topic.votes[participant.userId].name }}
+              </mat-chip>
+            </mat-chip-list>
           </mat-expansion-panel>
         </mat-accordion>
       </section>
