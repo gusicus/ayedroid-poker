@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatChipSelectionChange } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import {
   MatSelectionList,
@@ -49,6 +50,8 @@ export class ViewSessionComponent implements OnInit {
 
   public sizeChoice: string = '';
 
+  public revealVotes: boolean = false;
+
   private selectionList: MatSelectionList | undefined = undefined;
 
   public constructor(
@@ -89,6 +92,7 @@ export class ViewSessionComponent implements OnInit {
           };
           this.selectionList?.deselectAll();
           this.sizeChoice = '';
+          this.revealVotes = false;
         }
       }
     );
@@ -104,6 +108,13 @@ export class ViewSessionComponent implements OnInit {
             if (!size) return;
 
             this.currentTopic.votes[topicNotification.userId] = size;
+
+            if (
+              Object.keys(this.currentTopic.votes).length ===
+              this.session.participants.length
+            ) {
+              this.revealVotes = true;
+            }
           }
         }
       }
@@ -147,9 +158,8 @@ export class ViewSessionComponent implements OnInit {
     });
   }
 
-  public onSizeChoiceChange(event: MatSelectionListChange): void {
-    this.sizeChoice = event.source.selectedOptions.selected[0].value;
-    this.selectionList = event.source;
+  public onSizeChoiceChange(sizeId: string): void {
+    this.sizeChoice = sizeId;
     this.castVote(this.session.id, this.currentTopic.id, this.sizeChoice);
   }
 

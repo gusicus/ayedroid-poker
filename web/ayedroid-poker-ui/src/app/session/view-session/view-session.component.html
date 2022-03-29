@@ -8,7 +8,6 @@
         >
         <mat-icon mat-card-avatar>group</mat-icon>
       </mat-card-header>
-      <mat-divider></mat-divider>
       <mat-card-content>
         <mat-list dense>
           <mat-list-item *ngFor="let participant of session.participants">
@@ -46,46 +45,36 @@
           }}</mat-card-subtitle>
           <mat-icon mat-card-avatar>ballot</mat-icon>
         </mat-card-header>
-        <mat-divider></mat-divider>
-        <mat-card-content>
-          <mat-selection-list
-            [multiple]="false"
-            (selectionChange)="onSizeChoiceChange($event)"
-          >
-            <mat-list-option
-              *ngFor="let size of session?.sizes"
-              [value]="size.id"
+        <mat-card-content class="margin-vertical">
+          <mat-chip-list>
+            <mat-chip
+              *ngFor="let size of session.sizes"
+              (click)="onSizeChoiceChange(size.id)"
+              [selected]="size.id === sizeChoice"
+              color="accent"
             >
               {{ size.name }}
-              <mat-icon
-                matListIcon
-                [color]="sizeChoice === size.id ? 'accent' : 'default'"
-                >{{
-                  sizeChoice === size.id
-                    ? "radio_button_checked"
-                    : "radio_button_unchecked"
-                }}</mat-icon
-              >
-            </mat-list-option>
-          </mat-selection-list>
+            </mat-chip>
+          </mat-chip-list>
         </mat-card-content>
-        <mat-card-actions align="end">
-          <button
-            mat-stroked-button
-            (click)="completeEarly()"
-            class="margin-horizontal"
-          >
-            {{ t("VIEW SESSION.COMPLETE EARLY") }}
-          </button>
-          <button
-            mat-flat-button
-            color="accent"
-            (click)="nextTopic()"
-            class="margin-horizontal"
-          >
-            {{ t("VIEW SESSION.NEXT TOPIC") }}
-          </button>
-        </mat-card-actions>
+      </mat-card>
+
+      <mat-card *ngIf="currentTopic.id">
+        <button
+          mat-stroked-button
+          (click)="completeEarly()"
+          class="margin-horizontal"
+        >
+          {{ t("VIEW SESSION.COMPLETE EARLY") }}
+        </button>
+        <button
+          mat-flat-button
+          color="accent"
+          (click)="nextTopic()"
+          class="margin-horizontal"
+        >
+          {{ t("VIEW SESSION.NEXT TOPIC") }}
+        </button>
       </mat-card>
       <mat-card *ngIf="!currentTopic.id">
         <mat-card-content>
